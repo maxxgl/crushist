@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    {# <link rel="stylesheet" type="text/css" href="app.css"> #}
+    <title>Crushist Event</title>
+</head>
+
+<body>
+    {% if playlist %}
+    <ul>
+    {% for song in playlist %}
+        <li>{{ song.title }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+</body>
+
+</html>
