@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from .models import Song
+
 
 def home(request):
 
@@ -8,12 +10,11 @@ def home(request):
     return HttpResponse("<h1>Yeah we know it works - home")
 
 
-def events(request):
+def events(request, event_id):
+    playlist = Song.objects.all()
+    return HttpResponse("<h1>Yeah we know it works - event: %s" % event_id)
 
-    return HttpResponse("<h1>Yeah we know it works - events")
 
+def users(request, user_id):
 
-def users(request):
-
-    return HttpResponse("<h1>Yeah we know it works - users")
-
+    return HttpResponse("<h1>Yeah we know it works - user: %s" % user_id)
