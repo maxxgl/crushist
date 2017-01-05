@@ -1,0 +1,5 @@
+env_crushist
+*.DS_Store
+*.pyc
+__pycache__
+db.sqlite3
