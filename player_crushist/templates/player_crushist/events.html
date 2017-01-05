@@ -11,8 +11,9 @@
 
 <body>
     {% if playlist %}
+    <h1>{{ playlist.event_name }}</h1>
     <ul>
-    {% for song in playlist %}
+    {% for song in playlist.song_set.all %}
         <li>{{ song.title }}</li>
     {% endfor %}
     </ul>

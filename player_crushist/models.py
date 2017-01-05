@@ -2,9 +2,9 @@ from django.db import models
 
 
 class Song(models.Model):
-    song_title = models.CharField(max_length=250)
-    song_url = models.URLField(max_length=500)
-    song_votes = models.IntegerField(default=0)
+    title = models.CharField(max_length=250)
+    yt_url = models.URLField(max_length=500)
+    votes = models.IntegerField(default=0)
 
 
 class Event(models.Model):

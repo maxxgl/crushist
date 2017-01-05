@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
 
-from .models import Song
+from .models import Event
 
 
 def home(request):
@@ -11,8 +11,9 @@ def home(request):
 
 
 def events(request, event_id):
-    playlist = Song.objects.all()
-    return HttpResponse("<h1>Yeah we know it works - event: %s" % event_id)
+    playlist = get_object_or_404(Event, pk=event_id)
+    context = {'playlist': playlist}
+    return render(request, 'player_crushist/events.html', context)
 
 
 def users(request, user_id):
