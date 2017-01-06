@@ -10,13 +10,34 @@
 </head>
 
 <body>
-    {% if playlist %}
+{% if playlist %}
     <h1>{{ playlist.event_name }}</h1>
-    <ul>
-    {% for song in playlist.song_set.all %}
-        <li>{{ song.title }}</li>
-    {% endfor %}
-    </ul>
+
+    <div id="ytplayer"></div>
+    <script>
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/player_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      function onYouTubePlayerAPIReady() {
+        var player = new YT.Player('ytplayer', {
+          height: '270',
+          width: '480',
+          // origin: '',
+          iv_load_policy: '3',
+          listType: 'search',
+          list: 'drake'
+        });
+      }
+    </script>
+
+    <div style="border-style: solid; padding: 3px; margin-top: 10px;">Search</div>
+    <hr>
+{% for song in playlist.song_set.all %}
+    {{ song.title }} &nbsp&nbsp:&nbsp&nbsp {{ song.votes }}
+    <hr>
+{% endfor %}
 {% else %}
     <p>No polls are available.</p>
 {% endif %}
