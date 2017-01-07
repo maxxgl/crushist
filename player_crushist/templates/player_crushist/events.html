@@ -13,31 +13,66 @@
 {% if playlist %}
     <h1>{{ playlist.event_name }}</h1>
 
+    {# <div id="buttons">
+      <label> <input id="query" value='cats' type="text"/><button id="search-button" onclick="search()">Search</button></label>
+    </div>
+    <div id="search-container"></div> #}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/api.js?onload=googleApiClientReady"></script>
+
+
+
+    <script>
+        function searchListByKeyword(part, maxResults, q, type) {
+            $.get( "https://www.googleapis.com/youtube/v3/search",
+                {
+                    key: 'AIzaSyDHZf5lGSWfwmhjcsmVCFgNH41v76uG0ac',
+                    maxResults: maxResults,
+                    part: part,
+                    q: q,
+                    type: type,
+                },
+                function(data) {
+                    window.alert(data.id.videoId)
+                });
+        }
+        searchListByKeyword('snippet', 25, 'surfing', 'video');
+    </script>
+
+
     <div id="ytplayer"></div>
     <script>
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/player_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        // var tag = document.createElement('script');
+        // tag.src = "https://www.youtube.com/player_api";
+        // var firstScriptTag = document.getElementsByTagName('script')[0];
+        // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        var player;
-        function onYouTubePlayerAPIReady() {
-            player = new YT.Player('ytplayer', {
-              height: '270',
-              width: '480',
-              videoId: '7LnBvuzjpr4',
-              playerVars: {
-                // origin: '',
-                autoplay: '1',
-                iv_load_policy: '3'
-              },
-              events: {
-                'onStateChange': onPlayerStateChange
-              }
-            });
-        }
+        // var player;
+        // function onYouTubePlayerAPIReady() {
+        //     player = new YT.Player('ytplayer', {
+        //       height: '270',
+        //       width: '480',
+        //       videoId: '7LnBvuzjpr4',
+        //       playerVars: {
+        //         // origin: '',
+        //         autoplay: '0',
+        //         iv_load_policy: '3'
+        //       },
+        //       events: {
+        //         'onStateChange': onPlayerStateChange
+        //       }
+        //     });
+        // }
 
-      function onPlayerStateChange(event) {
+        // function searchByKeyword() {
+        //     var results = YouTube.Search.list('id,snippet', {q: 'norf', maxResults: 5, type: 'video', videoEmbeddable: 'true'});
+        //     for(var i in results.items) {
+        //         var item = results.items[i];
+        //         console.log('[%s] Title: %s', item.id.videoId, item.snippet.title);
+        //     }
+        // }
+
+        function onPlayerStateChange(event) {
             if (event.data == 0) {
                 event.target.loadVideoById('lasWefVUCsI');
             }
@@ -45,7 +80,7 @@
     </script>
 
     <div style="border-style: solid; padding: 3px; margin-top: 10px;">Search</div>
-    <button type="button">Click Me!</button>
+    {# <button type="button" onclick="searchByKeyword()">Click Me!</button> #}
     <hr>
 {% for song in playlist.song_set.all %}
     {{ song.title }} &nbsp&nbsp:&nbsp&nbsp {{ song.votes }}
