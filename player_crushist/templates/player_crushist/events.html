@@ -13,32 +13,8 @@
 {% if playlist %}
     <h1>{{ playlist.event_name }}</h1>
 
-    {# <div id="buttons">
-      <label> <input id="query" value='cats' type="text"/><button id="search-button" onclick="search()">Search</button></label>
-    </div>
-    <div id="search-container"></div> #}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://apis.google.com/js/api.js?onload=googleApiClientReady"></script>
-
-
-
-    <script>
-        function searchListByKeyword(part, maxResults, q, type) {
-            $.get( "https://www.googleapis.com/youtube/v3/search",
-                {
-                    key: 'AIzaSyDHZf5lGSWfwmhjcsmVCFgNH41v76uG0ac',
-                    maxResults: maxResults,
-                    part: part,
-                    q: q,
-                    type: type,
-                },
-                function(data) {
-                    window.alert(data.id.videoId)
-                });
-        }
-        searchListByKeyword('snippet', 25, 'surfing', 'video');
-    </script>
-
 
     <div id="ytplayer"></div>
     <script>
@@ -64,31 +40,47 @@
         //     });
         // }
 
-        // function searchByKeyword() {
-        //     var results = YouTube.Search.list('id,snippet', {q: 'norf', maxResults: 5, type: 'video', videoEmbeddable: 'true'});
-        //     for(var i in results.items) {
-        //         var item = results.items[i];
-        //         console.log('[%s] Title: %s', item.id.videoId, item.snippet.title);
-        //     }
-        // }
-
         function onPlayerStateChange(event) {
             if (event.data == 0) {
                 event.target.loadVideoById('lasWefVUCsI');
             }
         }
+
+        function searchListByKeyword(q) {
+            $.get( "https://www.googleapis.com/youtube/v3/search",
+                {
+                    key: 'AIzaSyDHZf5lGSWfwmhjcsmVCFgNH41v76uG0ac',
+                    maxResults: 5,
+                    type: 'video',
+                    videoEmbeddable: 'true',
+                    part: 'snippet',
+                    q: q
+                },
+                function(data) {
+                    for(var i in data.items) {
+                        var item = data.items[i];
+                        document.write("<img src='" + item.snippet.thumbnails.default.url + "'> </img>" + item.snippet.title + "<hr>")
+                    }
+                });
+        }
+
+        searchListByKeyword('cudi');
     </script>
 
-    <div style="border-style: solid; padding: 3px; margin-top: 10px;">Search</div>
+    <div style="padding: 3px; margin-top: 10px;"><div id="buttons">
+      <label> <input id="query" value='cats' type="text"/><button id="search-button" onclick="search()">Search</button></label>
+    </div>
+    <div id="search-container"></div>
+    </div>
     {# <button type="button" onclick="searchByKeyword()">Click Me!</button> #}
     <hr>
-{% for song in playlist.song_set.all %}
-    {{ song.title }} &nbsp&nbsp:&nbsp&nbsp {{ song.votes }}
-    <hr>
-{% endfor %}
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+    {% for song in playlist.song_set.all %}
+        {{ song.title }} &nbsp&nbsp:&nbsp&nbsp {{ song.votes }}
+        <hr>
+    {% endfor %} 
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
 </body>
 
 </html>
