@@ -9,8 +9,9 @@ class User(models.Model):
 
 
 class Event(models.Model):
-    event_name = models.CharField(max_length=250)
+    event_name = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    event_code = models.CharField(max_length=6, unique=True)
 
     def __str__(self):
         return self.event_name
@@ -18,8 +19,10 @@ class Event(models.Model):
 
 class Song(models.Model):
     title = models.CharField(max_length=250)
-    yt_url = models.URLField(max_length=500)
+    thumbnail_url = models.URLField(max_length=200)
+    yt_url = models.URLField(max_length=200)
     votes = models.IntegerField(default=0)
+    added = models.DateTimeField(auto_now_add=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
     def __str__(self):
