@@ -1,1 +1,11 @@
+html, body {
 
+}
+
+h1 {
+    color: red;
+}
+
+body {
+    background: white url("images/background.gif");
+}

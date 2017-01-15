@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'player_crushist/style.css' %}" />
+
     <title>Crushist Event</title>
 </head>
 
@@ -13,39 +16,7 @@
 {% if playlist %}
     <h1>{{ playlist.event_name }}</h1>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://apis.google.com/js/api.js?onload=googleApiClientReady"></script>
-
     <div id="ytplayer"></div>
-    <script>
-        // var tag = document.createElement('script');
-        // tag.src = "https://www.youtube.com/player_api";
-        // var firstScriptTag = document.getElementsByTagName('script')[0];
-        // firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        // var player;
-        // function onYouTubePlayerAPIReady() {
-        //     player = new YT.Player('ytplayer', {
-        //       height: '270',
-        //       width: '480',
-        //       videoId: '7LnBvuzjpr4',
-        //       playerVars: {
-        //         // origin: '',
-        //         autoplay: '0',
-        //         iv_load_policy: '3'
-        //       },
-        //       events: {
-        //         'onStateChange': onPlayerStateChange
-        //       }
-        //     });
-        // }
-
-        function onPlayerStateChange(event) {
-            if (event.data == 0) {
-                event.target.loadVideoById('lasWefVUCsI');
-            }
-        }
-    </script>
 
     <div style="padding: 3px; margin-top: 10px;"><div id="buttons">
       <label> <input id="query" type="text"/><button id="search-button" onclick="searchListByKeyword()">Search</button></label>
@@ -55,27 +26,6 @@
 
     <div id="search-results" style="border-style: solid"></div>
 
-    <script>
-        function searchListByKeyword() {
-            var q = $("#query").val();
-            $.get( "https://www.googleapis.com/youtube/v3/search",
-                {
-                    key: 'AIzaSyDHZf5lGSWfwmhjcsmVCFgNH41v76uG0ac',
-                    maxResults: 3,
-                    type: 'video',
-                    videoEmbeddable: 'true',
-                    part: 'snippet',
-                    q: q
-                },
-                function(data) {
-                    for(var i in data.items) {
-                        var item = data.items[i];
-                        $("#search-results").append("<img src='" + item.snippet.thumbnails.default.url + "'> </img>" + item.snippet.title + "<hr>")
-                    }
-                });
-        }
-    </script>
-
     <hr>
     {% for song in playlist.song_set.all %}
         {{ song.title }} &nbsp&nbsp:&nbsp&nbsp {{ song.votes }}
@@ -84,6 +34,12 @@
     {% else %}
         <p>No polls are available.</p>
     {% endif %}
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/api.js?onload=googleApiClientReady"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="{% static 'player_crushist/script.js' %}"></script>
 </body>
 
 </html>
