@@ -1,0 +1,18 @@
+{% load static %}
+{% include "player_crushist/partials/head.html" %}
+    <link rel="stylesheet" href="{% static 'player_crushist/style.css' %}" />
+    <title>Crushist Event</title>
+{# {% include "player_crushist/partials/header.html" %} #}
+</head>
+
+<body>
+
+    <div style="border: solid;">this is a header for event {{ playlist.id }}</div>
+
+    <div style="border: solid;">this is a footer</div>
+
+    
+    {% include "player_crushist/partials/footer.html" %}
+    <script src="https://apis.google.com/js/api.js?onload=googleApiClientReady"></script>
+    <script src="{% static 'player_crushist/script.js' %}"></script>
+</body></html>
