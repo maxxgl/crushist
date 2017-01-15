@@ -1,45 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
 {% load static %}
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width = device-width, initial-scale = 1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{% static 'player_crushist/style.css' %}" />
-
+{% include "player_crushist/partials/head.html" %}
+    <link rel="stylesheet" href="{% static 'player_crushist/style.css' %}" />
     <title>Crushist Event</title>
-</head>
+{% include "player_crushist/partials/header.html" %}
 
-<body>
-{% if playlist %}
-    <h1>{{ playlist.event_name }}</h1>
+    {% if playlist %}
+        <h1>{{ playlist.event_name }}</h1>
+        <div id="ytplayer"></div>
 
-    <div id="ytplayer"></div>
-
-    <div style="padding: 3px; margin-top: 10px;"><div id="buttons">
-      <label> <input id="query" type="text"/><button id="search-button" onclick="searchListByKeyword()">Search</button></label>
-    </div>
-    <div id="search-container"></div>
-    </div>
-
-    <div id="search-results" style="border-style: solid"></div>
-
-    <hr>
-    {% for song in playlist.song_set.all %}
-        {{ song.title }} &nbsp&nbsp:&nbsp&nbsp {{ song.votes }}
+        <div id="buttons" style="padding: 3px; margin-top: 10px;">
+            <label> <input id="query" type="text"/><button id="search-button" onclick="searchListByKeyword()">Search</button></label>
+            <div id="search-container"></div>
+        </div>
+        <div id="search-results" style="border-style: solid"></div>
         <hr>
-    {% endfor %} 
+        {% for song in playlist.song_set.all %}
+            {% include "player_crushist/partials/song.html" %}
+        {% endfor %} 
     {% else %}
         <p>No polls are available.</p>
     {% endif %}
 
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    {% include "player_crushist/partials/footer.html" %}
     <script src="https://apis.google.com/js/api.js?onload=googleApiClientReady"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="{% static 'player_crushist/script.js' %}"></script>
-</body>
-
-</html>
+</body></html>
