@@ -5,10 +5,8 @@ from .models import Event
 
 
 def home(request):
-
-    # return response_with_context(context)
-    return HttpResponse("<h1>Yeah we know it works - home")
-
+    context = {}
+    return render(request, 'player_crushist/master.html', context)
 
 def events(request, event_id):
     playlist = get_object_or_404(Event, pk=event_id)
@@ -17,7 +15,6 @@ def events(request, event_id):
 
 
 def users(request, user_id):
-
     return HttpResponse("<h1>Yeah we know it works - user: %s" % user_id)
 
 
