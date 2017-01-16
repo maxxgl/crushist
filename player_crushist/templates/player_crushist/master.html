@@ -6,12 +6,11 @@
 </head>
 
 <body>
-
     <div style="border: solid;">this is a header for event {{ playlist.id }}</div>
 
     <div style="border: solid;">this is a footer</div>
 
-    
+
     {% include "player_crushist/partials/footer.html" %}
     <script src="https://apis.google.com/js/api.js?onload=googleApiClientReady"></script>
     <script src="{% static 'player_crushist/script.js' %}"></script>

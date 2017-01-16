@@ -8,6 +8,7 @@ def home(request):
     context = {}
     return render(request, 'player_crushist/master.html', context)
 
+    
 def events(request, event_id):
     playlist = get_object_or_404(Event, pk=event_id)
     context = {'playlist': playlist}

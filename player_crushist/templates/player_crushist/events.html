@@ -13,10 +13,12 @@
             <div id="search-container"></div>
         </div>
         <div id="search-results" style="border-style: solid"></div>
-        <hr>
-        {% for song in playlist.song_set.all %}
-            {% include "player_crushist/partials/song.html" %}
-        {% endfor %} 
+        <div class="playlist">
+            <hr>
+            {% for song in playlist.song_set.all %}
+                {% include "player_crushist/partials/song.html" %}
+            {% endfor %} 
+        </div>
     {% else %}
         <p>No polls are available.</p>
     {% endif %}
