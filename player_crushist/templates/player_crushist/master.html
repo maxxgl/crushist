@@ -6,12 +6,18 @@
 </head>
 
 <body>
-    <div style="border: solid;">this is a header for event {{ playlist.id }}</div>
 
-    <div style="border: solid;">this is a footer</div>
+    <div class="hf" id="header">this is a header for event {{ playlist.id }}</div>
+
+
+    <div id="content">
+        Content that may or may not be there
+    </div>
+
+
+    <div class="hf" id="footer">this is a footer</div>
 
 
     {% include "player_crushist/partials/footer.html" %}
-    <script src="https://apis.google.com/js/api.js?onload=googleApiClientReady"></script>
     <script src="{% static 'player_crushist/script.js' %}"></script>
 </body></html>
