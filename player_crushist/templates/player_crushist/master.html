@@ -7,15 +7,25 @@
 
 <body>
 
-    <div class="hf" id="header">this is a header for event {{ playlist.id }}</div>
+    <div class="hf" id="header"><a href="/player">Emblem &nbsp&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp&nbsp  Logo &nbsp&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp&nbsp  Menu</a></div>
 
 
     <div id="content">
-        Content that may or may not be there
+        <div id="welcome">Welcome</div>
+        <div id="helptext">This is a thing that I'm making</div>
+        <form class="pure-form" id="joiner">
+            <fieldset>
+                <legend>Join Event</legend>
+                <input name="joincode" placeholder="Code">
+                <button type="submit" class="pure-button pure-button-primary">Join</button>
+            </fieldset>
+        </form>
+        <hr>
+        <button class="creator-button pure-button">Create An Event</button>
     </div>
 
 
-    <div class="hf" id="footer">this is a footer</div>
+    <div class="hf" id="footer">Copyright 2017 - Maxx Lehmann</div>
 
 
     {% include "player_crushist/partials/footer.html" %}
