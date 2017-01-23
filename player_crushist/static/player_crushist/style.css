@@ -68,5 +68,9 @@ a {
     border: 1px solid black; 
     width: calc(80% - 30px);
     background-color: darken(#fff, 5%);
-    */
+}
+
+.songadder:hover {
+    cursor: pointer;
+    background-color: lightgray;;
 }

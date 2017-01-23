@@ -23,7 +23,7 @@ function onYouTubePlayerAPIReady() {
 
 function onPlayerStateChange(event) {
     if (event.data == 0) {
-        event.target.loadVideoById('lasWefVUCsI');
+        event.target.loadVideoById('lasWefVUCsI')
     }
 }
 
@@ -42,9 +42,17 @@ function searchListByKeyword() {
     },
     function(data) {
       for(var i in data.items) {
-        var item = data.items[i];
-        $("#search-results").append("<img src='" + item.snippet.thumbnails.default.url + "'> </img>" + item.snippet.title + "<hr>")
-        $("#search-results").show()
+        $("#search-results").append(songHtml(data.items[i]))
       }
     });
+}
+
+function songHtml(entry) {
+  var song = `<div class="songadder" onclick="queueSong()">${entry.snippet.title}<hr></div>`
+  return song;
+}
+
+function queueSong() {
+  $("#query").val("")
+  $("#search-results").empty()
 }
