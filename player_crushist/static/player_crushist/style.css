@@ -18,6 +18,13 @@ a {
     text-decoration: none;
 }
 
+#eventtitle {
+    font-size: 2em;
+    font-weight: 500;
+    color:  #326496;
+    padding: 3% 0 2% 0;
+}
+
 .hf {
     display: flex;
     align-items: center;
@@ -38,10 +45,6 @@ a {
 .playlist {
 }
 
-h1 {
-    color:  #326496;
-}
-
 #welcome {
     font-size: 2em;
     padding-top: 5%;    
@@ -56,4 +59,14 @@ h1 {
     margin-top: 5%;
     border-radius: 4px;
     background: rgb(28, 184, 65);
+}
+
+
+#search-results {
+    position: absolute;
+    background-color: white; 
+    border: 1px solid black; 
+    width: calc(80% - 30px);
+    background-color: darken(#fff, 5%);
+    */
 }

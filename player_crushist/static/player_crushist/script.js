@@ -30,20 +30,21 @@ function onPlayerStateChange(event) {
 
 // ************************* YouTube Search *************************
 function searchListByKeyword() {
-    var q = $("#query").val();
-    $.get( "https://www.googleapis.com/youtube/v3/search",
-        {
-            key: 'AIzaSyDHZf5lGSWfwmhjcsmVCFgNH41v76uG0ac',
-            maxResults: 3,
-            type: 'video',
-            videoEmbeddable: 'true',
-            part: 'snippet',
-            q: q
-        },
-        function(data) {
-            for(var i in data.items) {
-                var item = data.items[i];
-                $("#search-results").append("<img src='" + item.snippet.thumbnails.default.url + "'> </img>" + item.snippet.title + "<hr>")
-            }
-        });
+  var q = $("#query").val();
+  $.get( "https://www.googleapis.com/youtube/v3/search",
+    {
+      key: 'AIzaSyDHZf5lGSWfwmhjcsmVCFgNH41v76uG0ac',
+      maxResults: 3,
+      type: 'video',
+      videoEmbeddable: 'true',
+      part: 'snippet',
+      q: q
+    },
+    function(data) {
+      for(var i in data.items) {
+        var item = data.items[i];
+        $("#search-results").append("<img src='" + item.snippet.thumbnails.default.url + "'> </img>" + item.snippet.title + "<hr>")
+        $("#search-results").show()
+      }
+    });
 }

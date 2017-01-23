@@ -4,26 +4,30 @@
     <title>Crushist Event</title>
 {% include "player_crushist/partials/header.html" %}
 
-    {% if playlist %}
-        <h1>{{ playlist.event_name }}</h1>
-        <div id="ytplayer"></div>
+    <div id="content">{% if playlist %}
+            <div id="eventtitle">{{ playlist.event_name }}</div>
+            <div id="ytplayer"></div>
+    
+            <div id="buttons" style="padding: 3px; margin-top: 10px;">
+                <div class="pure-form">
+                    <input id="query" placeholder="Song Search">
+                    <button class="pure-button pure-button-primary" onclick="searchListByKeyword()">Search</button>
+                </div> 
+                <div id="search-container"></div>
+            </div>
+            <div id="search-results"></div>
+            <div class="playlist">
+                <hr>
+                {% for song in playlist.song_set.all %}
+                    {% include "player_crushist/partials/song.html" %}
+                {% endfor %} 
+            </div>
+        {% else %}
+            <p>No polls are available.</p>
+        {% endif %}
+    </div>
 
-        <div id="buttons" style="padding: 3px; margin-top: 10px;">
-            <label> <input id="query" type="text"/><button id="search-button" onclick="searchListByKeyword()">Search</button></label>
-            <div id="search-container"></div>
-        </div>
-        <div id="search-results" style="border-style: solid"></div>
-        <div class="playlist">
-            <hr>
-            {% for song in playlist.song_set.all %}
-                {% include "player_crushist/partials/song.html" %}
-            {% endfor %} 
-        </div>
-    {% else %}
-        <p>No polls are available.</p>
-    {% endif %}
-
-    {% include "player_crushist/partials/footer.html" %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://apis.google.com/js/api.js?onload=googleApiClientReady"></script>
     <script src="{% static 'player_crushist/script.js' %}"></script>
 </body></html>
