@@ -56,3 +56,13 @@ function queueSong() {
   $("#query").val("")
   $("#search-results").empty()
 }
+
+
+// ******************************* Voting *******************************
+function upvote(id) {
+  alert(id)
+}
+
+function downvote(id) {
+  alert(id)
+}

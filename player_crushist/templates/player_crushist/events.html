@@ -1,7 +1,7 @@
 {% load static %}
 {% include "player_crushist/partials/head.html" %}
     <link rel="stylesheet" href="{% static 'player_crushist/style.css' %}" />
-    <title>Crushist Event</title>
+    <title>{{ playlist.event_name }}</title>
 {% include "player_crushist/partials/header.html" %}
 
     <div id="content">{% if playlist %}

@@ -1,5 +1,7 @@
 <div class="song" id="song{{ song.id }}">
-    {{ song.title }} &nbsp&nbsp:&nbsp&nbsp <i class="fa fa-arrow-up arrows"></i> {{ song.votes }} <i class="fa fa-arrow-down arrows"></i>
-
-    </div>
+    {{ song.title }} &nbsp&nbsp:&nbsp&nbsp
+    <i class="fa fa-arrow-up arrows" onclick="upvote({{ song.id }})"></i>
+    {{ song.votes }}
+    <i class="fa fa-arrow-down arrows" onclick="downvote({{ song.id }})"></i>
+</div>
 <hr>
