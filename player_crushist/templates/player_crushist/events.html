@@ -1,0 +1,33 @@
+{% load static %}
+{% include "player_crushist/partials/head.html" %}
+    <link rel="stylesheet" href="{% static 'player_crushist/style.css' %}" />
+    <title>{{ playlist.event_name }}</title>
+{% include "player_crushist/partials/header.html" %}
+
+    <div id="content">{% if playlist %}
+            <div id="eventtitle">{{ playlist.event_name }}</div>
+            <div id="ytplayer"></div>
+    
+            <div id="buttons" style="padding: 3px; margin-top: 10px;">
+                <div class="pure-form">
+                    <input id="query" placeholder="Song Search">
+                    <button class="pure-button pure-button-primary" onclick="searchListByKeyword()">Search</button>
+                </div> 
+            </div>
+            <div id="search-results"></div>
+            <div class="playlist">
+                <hr>
+                {% for song in playlist.song_set.all %}
+                    {% include "player_crushist/partials/song.html" %}
+                {% endfor %} 
+            </div>
+        {% else %}
+            <p>No polls are available.</p>
+        {% endif %}
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/api.js?onload=googleApiClientReady"></script>
+    <script src="https://use.fontawesome.com/b98b8595f2.js"></script>
+    <script src="{% static 'player_crushist/script.js' %}"></script>
+</body></html>

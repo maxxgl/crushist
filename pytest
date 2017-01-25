@@ -1,0 +1,8 @@
+from django.utils import timezone
+from django.test import TestCase
+
+from .models import 
+
+
+def not_a_real_test(self):
+    self.assertIs(True, True)

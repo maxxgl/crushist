@@ -1,0 +1,29 @@
+{% load static %}
+{% include "player_crushist/partials/head.html" %}
+    <link rel="stylesheet" href="{% static 'player_crushist/style.css' %}" />
+    <title>Crushist Event</title>
+{# {% include "player_crushist/partials/header.html" %} #}
+</head>
+
+<body>
+
+    <div class="hf" id="header"><a href="/player">Emblem &nbsp&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp&nbsp  Logo &nbsp&nbsp&nbsp&nbsp//&nbsp&nbsp&nbsp&nbsp  Menu</a></div>
+
+
+    <div id="content">
+        <div id="welcome">Welcome</div>
+        <div id="helptext">This is a thing that I'm making</div>
+        <form class="pure-form" id="joiner">
+            <fieldset>
+                <legend>Join Event</legend>
+                <input name="joincode" placeholder="Code">
+                <button type="submit" class="pure-button pure-button-primary">Join</button>
+            </fieldset>
+        </form>
+        <hr>
+        <button class="creator-button pure-button">Create An Event</button>
+    </div>
+
+    {% include "player_crushist/partials/footer.html" %}
+    <script src="{% static 'player_crushist/script.js' %}"></script>
+</body></html>
