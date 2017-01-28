@@ -1,19 +1,37 @@
-from channels import Group
+from channels import Channel, Group
+from channels.sessions import channel_session
+from .models import Song
 
 
-# Connected to websocket.connect
-def ws_add(message):
-    message.reply_channel.send({"accept": True})
-    Group("chat").add(message.reply_channel)
-
-
-# Connected to websocket.disconnect
-def ws_message(message):
-    Group("chat").send({
-        "text": "[user] %s" % message.content['text'],
+def msg_consumer(message):
+    print("msg consumed")
+    # Song.objects.create(
+    #     event=message.content['event'],
+    #     message=message.content['message'],
+    # )
+    Group("event-%s" % message.content['eventId']).send({
+        "text": message.content['text'],
     })
 
 
-# Connected to websocket.disconnect
+@channel_session
+def ws_connect(message):
+    message.reply_channel.send({"accept": True})
+    eventId = message.content['path'].strip("/event/")
+    message.channel_session['eventId'] = eventId
+    Group("event-%s" % eventId).add(message.reply_channel)
+
+
+@channel_session
+def ws_message(message):
+    print("msg recieved - '%s'" % message['text'])
+    Channel("event-messages").send({
+        "eventId": message.channel_session['eventId'],
+        "text": message['text'],
+    })
+
+
+@channel_session
 def ws_disconnect(message):
-    Group("chat").discard(message.reply_channel)
+    Group("event-%s" % message.channel_session['eventId']).discard(
+        message.reply_channel)
