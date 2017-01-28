@@ -1,17 +1,18 @@
 from channels import Channel, Group
 from channels.sessions import channel_session
+from django.shortcuts import get_object_or_404
 from .models import Song
+import json
 
 
 def msg_consumer(message):
-    print("msg consumed")
-    # Song.objects.create(
-    #     event=message.content['event'],
-    #     message=message.content['message'],
-    # )
-    Group("event-%s" % message.content['eventId']).send({
-        "text": message.content['text'],
-    })
+    song = get_object_or_404(Song, pk=message.content['songId'])
+    song.votes += int(message.content['vote'])
+    song.save()
+
+    # Group("event-%s" % message.content['eventId']).send({
+    #     "text": message.content['text'],
+    # })
 
 
 @channel_session
@@ -24,10 +25,11 @@ def ws_connect(message):
 
 @channel_session
 def ws_message(message):
-    print("msg recieved - '%s'" % message['text'])
+    data = json.loads(message['text'])
     Channel("event-messages").send({
         "eventId": message.channel_session['eventId'],
-        "text": message['text'],
+        "songId": data['songId'],
+        "vote": data['vote'],
     })
 
 
