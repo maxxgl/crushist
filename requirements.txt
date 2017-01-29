@@ -7,10 +7,12 @@ constantly==15.1.0
 daphne==1.0.1
 dj-database-url==0.4.2
 Django==1.10.5
+django-redis-cache==1.7.1
 gunicorn==19.6.0
 incremental==16.10.1
 msgpack-python==0.4.8
 packaging==16.8
+psycopg2==2.6.2
 pyparsing==2.1.10
 redis==2.10.5
 six==1.10.0
