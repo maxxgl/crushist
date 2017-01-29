@@ -4,18 +4,6 @@ from django.shortcuts import get_object_or_404
 from .models import Song
 import json
 
-
-def actions_consumer():
-    song = get_object_or_404(Song, pk=1)
-    data = {
-        "action": "newVote",
-        "songId": "1",
-        "vote": song.votes,
-    }
-    Group("event-1").send({
-        "text": json.dumps(data),
-    })
-
 def msg_consumer(message):
     song = get_object_or_404(Song, pk=message.content['songId'])
     song.votes += int(message.content['vote'])
@@ -24,16 +12,23 @@ def msg_consumer(message):
         message['reply'],
         channel_layer=message.channel_layer,
     )
-
     data = {
         "action": "voted",
         "songId": song.pk,
         "vote": "up" if message['vote'] > 0 else "down",
     }
+    groupData = {
+        "action": "newVote",
+        "songId": song.pk,
+        "votes": song.votes,
+    }
+
+    Group("event-%s" % message['eventId']).send({
+        "text": json.dumps(groupData),
+    })
     reply_channel.send({
         "text": json.dumps(data),
     })
-
 
 @channel_session
 def ws_connect(message):
