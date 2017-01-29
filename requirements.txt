@@ -5,6 +5,7 @@ autobahn==0.17.1
 channels==1.0.2
 constantly==15.1.0
 daphne==1.0.1
+dj-database-url==0.4.2
 Django==1.10.5
 gunicorn==19.6.0
 incremental==16.10.1
