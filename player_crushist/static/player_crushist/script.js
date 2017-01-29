@@ -58,6 +58,30 @@ function queueSong() {
 }
 
 
+// ************************* Socket Constructor *************************
+socket = new WebSocket("ws://" + window.location.host + "/event/1");
+
+socket.onmessage = function(e) {
+  var data = JSON.parse(e.data)
+
+  switch(data.action) {
+    case "newVote":
+      $("#song" + data.songId + "votes").html(data.votes)
+      break;
+    default: 
+      console.log()
+  }
+}
+socket.onopen = function() {
+    socket.send(JSON.stringify({
+        "songId": 1,
+        "vote": 1,
+    }));
+}
+// Call onopen directly if socket is already open
+if (socket.readyState == WebSocket.OPEN) socket.onopen();
+
+
 // ******************************* Voting *******************************
 function upvote(id) {
   alert(id)

@@ -5,18 +5,27 @@ from .models import Song
 import json
 
 
+def actions_consumer():
+    song = get_object_or_404(Song, pk=1)
+    data = {
+        "action": "newVote",
+        "songId": "1",
+        "vote": song.votes,
+    }
+    Group("event-1").send({
+        "text": json.dumps(data),
+    })
+
 def msg_consumer(message):
-    song = get_object_or_404(Song, pk=message.content['songId'])
-    song.votes += int(message.content['vote'])
-    song.save()
-    reply_channel = Channel(
-        message['reply'],
-        channel_layer=message.channel_layer,
-    )
-    reply_channel.send({"text": "thing"})
-    # Group("event-%s" % message.content['eventId']).send({
-    #     "text": message.content['text'],
-    # })
+    pass
+    # song = get_object_or_404(Song, pk=message.content['songId'])
+    # song.votes += int(message.content['vote'])
+    # song.save()
+    # reply_channel = Channel(
+    #     message['reply'],
+    #     channel_layer=message.channel_layer,
+    # )
+    # reply_channel.send({"text": "thing"})
 
 
 @channel_session
@@ -36,6 +45,7 @@ def ws_message(message):
         "vote": data['vote'],
         "reply": message['reply_channel']
     })
+
 
 @channel_session
 def ws_disconnect(message):
