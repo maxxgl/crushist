@@ -68,25 +68,29 @@ socket.onmessage = function(e) {
     case "newVote":
       $("#song" + data.songId + "votes").html(data.votes)
       break;
+    case "voted":
+      $("#song" + data.songId + data.vote).css("color", "red")
+      break;
     default: 
-      console.log()
+      alert("something went wrong with your switch")
   }
 }
-socket.onopen = function() {
-    socket.send(JSON.stringify({
-        "songId": 1,
-        "vote": 1,
-    }));
-}
-// Call onopen directly if socket is already open
-if (socket.readyState == WebSocket.OPEN) socket.onopen();
+// socket.onopen = function() {
+//     socket.send(JSON.stringify({
+//         "songId": 1,
+//         "vote": 1,
+//     }));
+// }
+
+// if (socket.readyState == WebSocket.OPEN) socket.onopen();
 
 
 // ******************************* Voting *******************************
-function upvote(id) {
-  alert(id)
-}
-
-function downvote(id) {
-  alert(id)
+function vote(id, vote) {
+  if (socket.readyState == WebSocket.OPEN) {
+    socket.send(JSON.stringify({
+        "songId": id,
+        "vote": vote,
+    }))
+  }
 }
