@@ -9,7 +9,11 @@ def msg_consumer(message):
     song = get_object_or_404(Song, pk=message.content['songId'])
     song.votes += int(message.content['vote'])
     song.save()
-
+    reply_channel = Channel(
+        message['reply'],
+        channel_layer=message.channel_layer,
+    )
+    reply_channel.send({"text": "thing"})
     # Group("event-%s" % message.content['eventId']).send({
     #     "text": message.content['text'],
     # })
@@ -30,8 +34,8 @@ def ws_message(message):
         "eventId": message.channel_session['eventId'],
         "songId": data['songId'],
         "vote": data['vote'],
+        "reply": message['reply_channel']
     })
-
 
 @channel_session
 def ws_disconnect(message):
