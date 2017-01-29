@@ -30,6 +30,7 @@ def msg_consumer(message):
         "text": json.dumps(data),
     })
 
+
 @channel_session
 def ws_connect(message):
     message.reply_channel.send({"accept": True})
