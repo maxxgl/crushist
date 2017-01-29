@@ -58,11 +58,39 @@ function queueSong() {
 }
 
 
-// ******************************* Voting *******************************
-function upvote(id) {
-  alert(id)
-}
+// ************************* Socket Constructor *************************
+socket = new WebSocket("ws://" + window.location.host + "/event/1");
 
-function downvote(id) {
-  alert(id)
+socket.onmessage = function(e) {
+  var data = JSON.parse(e.data)
+
+  switch(data.action) {
+    case "newVote":
+      $("#song" + data.songId + "votes").html(data.votes)
+      break;
+    case "voted":
+      $("#song" + data.songId + data.vote).css("color", "red")
+      break;
+    default: 
+      alert("something went wrong with your switch")
+  }
+}
+// socket.onopen = function() {
+//     socket.send(JSON.stringify({
+//         "songId": 1,
+//         "vote": 1,
+//     }));
+// }
+
+// if (socket.readyState == WebSocket.OPEN) socket.onopen();
+
+
+// ******************************* Voting *******************************
+function vote(id, vote) {
+  if (socket.readyState == WebSocket.OPEN) {
+    socket.send(JSON.stringify({
+        "songId": id,
+        "vote": vote,
+    }))
+  }
 }
