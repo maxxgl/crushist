@@ -16,12 +16,9 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.generic.base import RedirectView
-from django.contrib.staticfiles.storage import staticfiles_storage
 
 urlpatterns = [
     url(r'^', include('player_crushist.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^favicon\.ico$', RedirectView.as_view(
-        url=staticfiles_storage.url('/favicon.ico'),
-        permanent=False)),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/favicon.ico')),
 ]
