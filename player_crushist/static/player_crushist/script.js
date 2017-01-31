@@ -48,18 +48,29 @@ function searchListByKeyword() {
 }
 
 function songHtml(entry) {
-  var song = `<div class="songadder" onclick="queueSong()">${entry.snippet.title}<hr></div>`
+  var song = `<div class="songadder"
+    onclick="queueSong(${entry})">
+    ${entry.snippet.title}<hr></div>`
   return song;
 }
 
-function queueSong() {
+function queueSong(newSong) {
+  if (socket.readyState == WebSocket.OPEN) {
+    socket.send(JSON.stringify({
+        "action": "queueSong",
+        "title": newSong.snippet.title,
+        "embedId": newSong,
+        "songId": id,
+        "vote": vote,
+    }))
+  }
   $("#query").val("")
   $("#search-results").empty()
 }
 
 
 // ************************* Socket Constructor *************************
-socket = new WebSocket("wss://" + window.location.host + "/event/1");
+socket = new WebSocket("ws://" + window.location.host + "/event/1");
 
 socket.onmessage = function(e) {
   var data = JSON.parse(e.data)
@@ -89,6 +100,7 @@ socket.onmessage = function(e) {
 function vote(id, vote) {
   if (socket.readyState == WebSocket.OPEN) {
     socket.send(JSON.stringify({
+        "action": "vote",
         "songId": id,
         "vote": vote,
     }))
