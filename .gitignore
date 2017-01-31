@@ -3,3 +3,4 @@ env_crushist
 *.pyc
 __pycache__
 db.sqlite3
+.env
