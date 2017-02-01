@@ -14,10 +14,12 @@ def msg_consumer(message):
     elif data['action'] == 'nextSong':
         newSong = actions.nextSong(message['eventId'])
         re = Channel(message['reply'], channel_layer=message.channel_layer)
-        re.send({
-            "action": "newSong",
-            "title": json.dumps(newSong)
+        new_song_msg = json.dumps({
+            "action": "nextSong",
+            "title": newSong['title'],
+            "videoId": newSong['videoId']
         })
+        re.send({"text": new_song_msg})
 
     # Group("event-%s" % message['eventId']).send({"action": "refresh"})
 

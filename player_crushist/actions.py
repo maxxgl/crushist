@@ -22,7 +22,7 @@ def nextSong(eventId):
     event = get_object_or_404(Event, pk=eventId)
     songs = event.song_set.all()
     newSong = songs.latest('votes')
-    event.now_playing_id = newSong.id
+    event.now_playing_id = newSong.yt_url
     event.save()
     event.now_playing_title = newSong.title
     event.save()

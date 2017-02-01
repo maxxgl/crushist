@@ -4,3 +4,4 @@ env_crushist
 __pycache__
 db.sqlite3
 .env
+migrations
