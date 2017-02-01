@@ -11,7 +11,7 @@ function onYouTubePlayerAPIReady() {
       width: '480',
       videoId: '7LnBvuzjpr4',
       playerVars: {
-        // origin: '', !!!! <--- Update for deployment
+        origin: 'http://crushist.herokuapp.com',
         autoplay: '0',
         iv_load_policy: '3'
       },
@@ -27,6 +27,7 @@ socket = new WebSocket("ws://" + window.location.host + window.location.pathname
 
 socket.onmessage = function(e) {
   var data = JSON.parse(e.data)
+  console.log(data)
 
   switch(data.action) {
     case "newVote":
@@ -36,7 +37,8 @@ socket.onmessage = function(e) {
       $("#song" + data.songId + data.vote).css("color", "red")
       break;
     case "nextSong":
-      event.target.loadVideoById(data.videoId)
+      player.loadVideoById(data.videoId)
+      break;
     default:
       alert("something went wrong with your switch")
   }
@@ -69,7 +71,6 @@ function searchListByKeyword() {
 }
 
 function songHtml(entry) {
-  console.log(entry)
   var song = `<div class="songadder"
     onclick="queueSong('${entry.id.videoId}', '${entry.snippet.title}')">
     ${entry.snippet.title}<hr></div>`
