@@ -2,7 +2,6 @@ from channels import Channel, Group
 from channels.sessions import channel_session
 import json
 from . import actions
-import sys
 
 
 def msg_consumer(message):
@@ -11,7 +10,7 @@ def msg_consumer(message):
     if data['action'] == 'vote':
         actions.vote(data)
     elif data['action'] == 'queueSong':
-        actions.queueSong()
+        actions.queueSong(data, message['eventId'])
 
     # reply_channel = Channel(
     #     message['reply'],
@@ -47,7 +46,6 @@ def ws_connect(message):
 
 @channel_session
 def ws_message(message):
-    print(message['text'], file=sys.stderr)
     Channel("event-messages").send({
         "eventId": message.channel_session['eventId'],
         "data": message['text'],

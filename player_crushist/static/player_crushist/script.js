@@ -48,22 +48,22 @@ function searchListByKeyword() {
 }
 
 function songHtml(entry) {
+  console.log(entry)
   var song = `<div class="songadder"
-    onclick="queueSong(${entry})">
+    onclick="queueSong('${entry.id.videoId}', '${entry.snippet.title}')">
     ${entry.snippet.title}<hr></div>`
   return song;
 }
 
-function queueSong(newSong) {
+function queueSong(newSong, title) {
   if (socket.readyState == WebSocket.OPEN) {
     socket.send(JSON.stringify({
-        "action": "queueSong",
-        "title": newSong.snippet.title,
-        "embedId": newSong,
-        "songId": id,
-        "vote": vote,
+      "action": "queueSong",
+      "title": title,
+      "yt_url": newSong,
     }))
   }
+
   $("#query").val("")
   $("#search-results").empty()
 }
