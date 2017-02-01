@@ -12,8 +12,8 @@ class Event(models.Model):
     event_name = models.CharField(max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event_code = models.CharField(max_length=6, unique=True)
-    now_playing_id = models.CharField(max_length=25)
-    now_playing_title = models.CharField(max_length=250)
+    now_playing_id = models.CharField(max_length=25, default="npid")
+    now_playing_title = models.CharField(max_length=250, default="nptitle")
 
     def __str__(self):
         return self.event_name
