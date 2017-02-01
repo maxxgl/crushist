@@ -16,14 +16,14 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECRET_KEY = os.environ.get("SECRET_KEY")
-SECRET_KEY = os.environ.get('SECRET_KEY', 'surewhynot')
+SECRET_KEY = os.environ.get('SECRET_KEY', 'defaultthingy')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', True)
+# DEBUG = os.environ.get("DEBUG")
+DEBUG = os.environ.get('DEBUG', False)
 
 ALLOWED_HOSTS = ['*']
 
@@ -81,9 +81,6 @@ DATABASES = {
     )
 }
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-
 
 CHANNEL_LAYERS = {
     "default": {
@@ -94,19 +91,6 @@ CHANNEL_LAYERS = {
         "ROUTING": "crushist.routing.channel_routing",
     },
 }
-
-
-# redis_url = urlparse(os.environ.get('REDIS_URL'))
-# CACHES = {
-#     "default": {
-#         "BACKEND": "redis_cache.RedisCache",
-#         "LOCATION": "{0}:{1}".format(redis_url.hostname, redis_url.port),
-#         "OPTIONS": {
-#             "PASSWORD": redis_url.password,
-#             "DB": 0,
-#         }
-#     }
-# }
 
 
 # Password validation

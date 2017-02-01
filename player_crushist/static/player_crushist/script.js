@@ -21,14 +21,35 @@ function onYouTubePlayerAPIReady() {
     })
 }
 
-function onPlayerStateChange(event) {
-    if (event.data == 0) {
-        event.target.loadVideoById('lasWefVUCsI')
-    }
+
+// ************************* Socket Constructor *************************
+socket = new WebSocket("ws://" + window.location.host + window.location.pathname);
+
+socket.onmessage = function(e) {
+  var data = JSON.parse(e.data)
+
+  switch(data.action) {
+    case "newVote":
+      $("#song" + data.songId + "votes").html(data.votes)
+      break;
+    case "voted":
+      $("#song" + data.songId + data.vote).css("color", "red")
+      break;
+    case "nextSong":
+      event.target.loadVideoById(data.videoId)
+    default:
+      alert("something went wrong with your switch")
+  }
 }
 
 
-// ************************* YouTube Search *************************
+// ************************* YouTube Control *************************
+function onPlayerStateChange(event) {
+  if (event.data == 0 && socket.readyState == WebSocket.OPEN) {
+    socket.send(JSON.stringify({"action": "nextSong"}))
+  }
+}
+
 function searchListByKeyword() {
   var q = $("#query").val();
   $.get( "https://www.googleapis.com/youtube/v3/search",
@@ -48,47 +69,32 @@ function searchListByKeyword() {
 }
 
 function songHtml(entry) {
-  var song = `<div class="songadder" onclick="queueSong()">${entry.snippet.title}<hr></div>`
+  console.log(entry)
+  var song = `<div class="songadder"
+    onclick="queueSong('${entry.id.videoId}', '${entry.snippet.title}')">
+    ${entry.snippet.title}<hr></div>`
   return song;
 }
 
-function queueSong() {
+function queueSong(newSong, title) {
+  if (socket.readyState == WebSocket.OPEN) {
+    socket.send(JSON.stringify({
+      "action": "queueSong",
+      "title": title,
+      "yt_url": newSong,
+    }))
+  }
+
   $("#query").val("")
   $("#search-results").empty()
 }
-
-
-// ************************* Socket Constructor *************************
-socket = new WebSocket("wss://" + window.location.host + "/event/1");
-
-socket.onmessage = function(e) {
-  var data = JSON.parse(e.data)
-
-  switch(data.action) {
-    case "newVote":
-      $("#song" + data.songId + "votes").html(data.votes)
-      break;
-    case "voted":
-      $("#song" + data.songId + data.vote).css("color", "red")
-      break;
-    default: 
-      alert("something went wrong with your switch")
-  }
-}
-// socket.onopen = function() {
-//     socket.send(JSON.stringify({
-//         "songId": 1,
-//         "vote": 1,
-//     }));
-// }
-
-// if (socket.readyState == WebSocket.OPEN) socket.onopen();
 
 
 // ******************************* Voting *******************************
 function vote(id, vote) {
   if (socket.readyState == WebSocket.OPEN) {
     socket.send(JSON.stringify({
+        "action": "vote",
         "songId": id,
         "vote": vote,
     }))
