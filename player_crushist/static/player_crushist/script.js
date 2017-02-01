@@ -23,7 +23,7 @@ function onYouTubePlayerAPIReady() {
 
 
 // ************************* Socket Constructor *************************
-socket = new WebSocket("ws://" + window.location.host + "/event/1");
+socket = new WebSocket("ws://" + window.location.host + window.location.pathname);
 
 socket.onmessage = function(e) {
   var data = JSON.parse(e.data)

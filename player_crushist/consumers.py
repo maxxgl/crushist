@@ -11,11 +11,15 @@ def msg_consumer(message):
         actions.vote(data)
     elif data['action'] == 'queueSong':
         actions.queueSong(data, message['eventId'])
+    elif data['action'] == 'nextSong':
+        newSong = actions.nextSong(message['eventId'])
+        re = Channel(message['reply'], channel_layer=message.channel_layer)
+        re.send({
+            "action": "newSong",
+            "title": json.dumps(newSong)
+        })
 
-    # reply_channel = Channel(
-    #     message['reply'],
-    #     channel_layer=message.channel_layer,
-    # )
+    # Group("event-%s" % message['eventId']).send({"action": "refresh"})
 
     # data = {
     #     "action": "voted",
@@ -28,9 +32,6 @@ def msg_consumer(message):
     #     "votes": song.votes,
     # }
 
-    # Group("event-%s" % message['eventId']).send({
-    #     "text": json.dumps(groupData),
-    # })
     # reply_channel.send({
     #     "text": json.dumps(data),
     # })
@@ -39,7 +40,7 @@ def msg_consumer(message):
 @channel_session
 def ws_connect(message):
     message.reply_channel.send({"accept": True})
-    eventId = message.content['path'].strip("/event/")
+    eventId = message.content['path'].strip("/")
     message.channel_session['eventId'] = eventId
     Group("event-%s" % eventId).add(message.reply_channel)
 
