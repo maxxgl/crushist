@@ -21,17 +21,13 @@ def msg_consumer(message):
         })
         re.send({"text": new_song_msg})
 
-    # Group("event-%s" % message['eventId']).send({"action": "refresh"})
+    refresh = json.dumps({"action": "refresh"})
+    Group("event-%s" % message['eventId']).send({"text": refresh})
 
     # data = {
     #     "action": "voted",
     #     "songId": song.pk,
     #     "vote": "up" if message['vote'] > 0 else "down",
-    # }
-    # groupData = {
-    #     "action": "newVote",
-    #     "songId": song.pk,
-    #     "votes": song.votes,
     # }
 
     # reply_channel.send({

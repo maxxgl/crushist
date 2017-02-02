@@ -15,14 +15,8 @@
                 </div> 
             </div>
             <div id="search-results"></div>
-            <div class="playlist">
-                <hr>
-                {% for song in playlist.song_set.all %}
-                    {% include "player_crushist/partials/song.html" %}
-                {% endfor %} 
-            </div>
-        {% else %}
-            <p>No polls are available.</p>
+            <hr>
+            <div class="playlist"></div>
         {% endif %}
     </div>
 

@@ -23,22 +23,24 @@ function onYouTubePlayerAPIReady() {
 
 
 // ************************* Socket Constructor *************************
-socket = new WebSocket("ws://" + window.location.host + window.location.pathname);
+socket = new WebSocket("ws://" + window.location.host + window.location.pathname)
 
 socket.onmessage = function(e) {
   var data = JSON.parse(e.data)
-  console.log(data)
 
   switch(data.action) {
     case "newVote":
       $("#song" + data.songId + "votes").html(data.votes)
-      break;
+      break
     case "voted":
       $("#song" + data.songId + data.vote).css("color", "red")
-      break;
+      break
     case "nextSong":
       player.loadVideoById(data.videoId)
-      break;
+      break
+    case "refresh":
+      refresh()
+      break
     default:
       alert("something went wrong with your switch")
   }
@@ -88,6 +90,18 @@ function queueSong(newSong, title) {
 
   $("#query").val("")
   $("#search-results").empty()
+}
+
+
+// ***************************** Playlist Loader *****************************
+refresh()
+function refresh() {
+  $.get(
+      window.location.href + "playlist",
+      function(data) {
+        $(".playlist").html(data)
+      }
+  )
 }
 
 
