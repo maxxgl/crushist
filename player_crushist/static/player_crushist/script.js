@@ -23,11 +23,10 @@ function onYouTubePlayerAPIReady() {
 
 
 // ************************* Socket Constructor *************************
-socket = new WebSocket("ws://" + window.location.host + window.location.pathname);
+socket = new WebSocket("ws://" + window.location.host + window.location.pathname)
 
 socket.onmessage = function(e) {
   var data = JSON.parse(e.data)
-  console.log(data)
 
   switch(data.action) {
     case "newVote":
@@ -50,6 +49,7 @@ function onPlayerStateChange(event) {
   if (event.data == 0 && socket.readyState == WebSocket.OPEN) {
     socket.send(JSON.stringify({"action": "nextSong"}))
   }
+  refresh()
 }
 
 function searchListByKeyword() {
@@ -88,6 +88,19 @@ function queueSong(newSong, title) {
 
   $("#query").val("")
   $("#search-results").empty()
+  refresh()
+}
+
+
+// ***************************** Playlist Loader *****************************
+refresh()
+function refresh() {
+  $.get(
+      window.location.href + "playlist",
+      function(data) {
+        $(".playlist").html(data)
+      }
+  )
 }
 
 
@@ -99,5 +112,6 @@ function vote(id, vote) {
         "songId": id,
         "vote": vote,
     }))
+    refresh()
   }
 }
