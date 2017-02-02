@@ -23,7 +23,9 @@ function onYouTubePlayerAPIReady() {
 
 
 // ************************* Socket Constructor *************************
-socket = new WebSocket("ws://" + window.location.host + window.location.pathname)
+var ws_p = window.location.protocol == "https:" ? "wss" : "ws"
+var pagename = window.location.host + window.location.pathname
+socket = new WebSocket(ws_p + "://" + pagename)
 
 socket.onmessage = function(e) {
   var data = JSON.parse(e.data)
