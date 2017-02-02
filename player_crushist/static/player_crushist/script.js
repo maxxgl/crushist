@@ -31,13 +31,16 @@ socket.onmessage = function(e) {
   switch(data.action) {
     case "newVote":
       $("#song" + data.songId + "votes").html(data.votes)
-      break;
+      break
     case "voted":
       $("#song" + data.songId + data.vote).css("color", "red")
-      break;
+      break
     case "nextSong":
       player.loadVideoById(data.videoId)
-      break;
+      break
+    case "refresh":
+      refresh()
+      break
     default:
       alert("something went wrong with your switch")
   }
@@ -49,7 +52,6 @@ function onPlayerStateChange(event) {
   if (event.data == 0 && socket.readyState == WebSocket.OPEN) {
     socket.send(JSON.stringify({"action": "nextSong"}))
   }
-  refresh()
 }
 
 function searchListByKeyword() {
@@ -88,7 +90,6 @@ function queueSong(newSong, title) {
 
   $("#query").val("")
   $("#search-results").empty()
-  refresh()
 }
 
 
@@ -112,6 +113,5 @@ function vote(id, vote) {
         "songId": id,
         "vote": vote,
     }))
-    refresh()
   }
 }
