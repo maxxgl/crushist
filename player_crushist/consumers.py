@@ -6,14 +6,21 @@ from . import actions
 
 def msg_consumer(message):
     data = json.loads(message['data'])
+    re = Channel(message['reply'], channel_layer=message.channel_layer)
 
-    if data['action'] == 'vote':
+    if data['action'] == 'newUser':
+        newUserId = actions.newUser()
+        new_user_msg = json.dumps({
+            "action": "newUser",
+            "newUserId": newUserId,
+        })
+        re.send({"text": new_user_msg})
+    elif data['action'] == 'vote':
         actions.vote(data)
     elif data['action'] == 'queueSong':
         actions.queueSong(data, message['eventId'])
     elif data['action'] == 'nextSong':
         newSong = actions.nextSong(message['eventId'])
-        re = Channel(message['reply'], channel_layer=message.channel_layer)
         new_song_msg = json.dumps({
             "action": "nextSong",
             "title": newSong['title'],

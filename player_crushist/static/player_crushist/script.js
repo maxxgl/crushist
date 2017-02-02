@@ -22,6 +22,14 @@ function onYouTubePlayerAPIReady() {
 }
 
 
+// ************************* Cookie Handler *************************
+if (!) {
+  if (socket.readyState == WebSocket.OPEN) {
+    socket.send(JSON.stringify({"action": "newUser"}))
+  }
+}
+
+
 // ************************* Socket Constructor *************************
 var ws_p = window.location.protocol == "https:" ? "wss" : "ws"
 var pagename = window.location.host + window.location.pathname
@@ -42,6 +50,9 @@ socket.onmessage = function(e) {
       break
     case "refresh":
       refresh()
+      break
+    case "newUser":
+      localStorage.setItem(27875, "{'userId':'" + data.newUserId +"'}")
       break
     default:
       alert("something went wrong with your switch")
@@ -108,11 +119,12 @@ function refresh() {
 
 
 // ******************************* Voting *******************************
-function vote(id, vote) {
+function vote(songId, vote) {
   if (socket.readyState == WebSocket.OPEN) {
     socket.send(JSON.stringify({
         "action": "vote",
-        "songId": id,
+        "userId": localStorage.getItem(27875),
+        "songId": songId,
         "vote": vote,
     }))
   }
