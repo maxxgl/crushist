@@ -10,16 +10,24 @@ def msg_consumer(message):
 
     if data['action'] == 'newUser':
         newUserId = actions.newUser()
-        # print(newUserId + "=======================================")
         new_user_msg = json.dumps({
             "action": "newUser",
             "newUserId": newUserId,
         })
         re.send({"text": new_user_msg})
+
     elif data['action'] == 'vote':
-        actions.vote(data)
+        votedList = actions.vote(data)
+        new_votes_msg = json.dumps({
+            "action": "voted",
+            "upvoted": votedList['upvoted'],
+            "downvoted": votedList['downvoted'],
+        })
+        re.send({"text": new_votes_msg})
+
     elif data['action'] == 'queueSong':
         actions.queueSong(data, message['eventId'])
+
     elif data['action'] == 'nextSong':
         newSong = actions.nextSong(message['eventId'])
         new_song_msg = json.dumps({

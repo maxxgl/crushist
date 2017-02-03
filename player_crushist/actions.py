@@ -20,16 +20,29 @@ def queueSong(newSong, eventId):
 def vote(data):
     vote = data['vote']
     song = get_object_or_404(Song, pk=data['songId'])
-    voter = get_object_or_404(User, pk=data['userId'])
-    upvoted = song.upvoters.filter(id=voter.id).exists()
-    downvoted = song.downvoters.filter(id=voter.id).exists()
-    song.upvoters.remove(voter)
-    song.downvoters.remove(voter)
+    user = get_object_or_404(User, pk=data['userId'])
+    upvoted = song.upvoters.filter(id=user.id).exists()
+    downvoted = song.downvoters.filter(id=user.id).exists()
+    if vote is not 0:
+        song.upvoters.remove(user)
+        song.downvoters.remove(user)
 
     if vote > 0 and not upvoted:
-        song.upvoters.add(voter)
+        song.upvoters.add(user)
     elif vote < 0 and not downvoted:
-        song.downvoters.add(voter)
+        song.downvoters.add(user)
+
+    uplist = []
+    downlist = []
+    for i in Song.objects.filter(upvoters=user).values_list('id', flat=True):
+        uplist.append(i)
+    for i in Song.objects.filter(downvoters=user).values_list('id', flat=True):
+        downlist.append(i)
+
+    return {
+        "upvoted": uplist,
+        "downvoted": downlist
+    }
 
 
 def nextSong(eventId):
