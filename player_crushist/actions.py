@@ -19,9 +19,9 @@ def queueSong(newSong, eventId):
 
 def vote(data):
     song = get_object_or_404(Song, pk=data['songId'])
-    voter = get_object_or_404(User, pk=['userId'])
+    voter = get_object_or_404(User, pk=data['userId'])
     if data['vote'] > 0:
-        song.upvoters.add(voter)
+        print(song.upvoters.add(voter))
     else:
         song.downvoters.add(voter)
 

@@ -32,16 +32,6 @@ def msg_consumer(message):
     refresh = json.dumps({"action": "refresh"})
     Group("event-%s" % message['eventId']).send({"text": refresh})
 
-    # data = {
-    #     "action": "voted",
-    #     "songId": song.pk,
-    #     "vote": "up" if message['vote'] > 0 else "down",
-    # }
-
-    # reply_channel.send({
-    #     "text": json.dumps(data),
-    # })
-
 
 @channel_session
 def ws_connect(message):
@@ -49,6 +39,8 @@ def ws_connect(message):
     eventId = message.content['path'].strip("/")
     message.channel_session['eventId'] = eventId
     Group("event-%s" % eventId).add(message.reply_channel)
+    connected = json.dumps({"action": "connected"})
+    message.reply_channel.send({"text": connected})
 
 
 @channel_session

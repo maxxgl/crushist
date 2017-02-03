@@ -28,14 +28,6 @@ var pagename = window.location.host + window.location.pathname
 socket = new WebSocket(ws_p + "://" + pagename)
 
 
-// ************************* Cookie Handler *************************
-if (!localStorage.getItem(27875)) {
-  socket.onopen = function() {
-    socket.send(JSON.stringify({"action": "newUser"}))
-  }
-}
-
-
 // ************************* Message Handling *************************
 socket.onmessage = function(e) {
   var data = JSON.parse(e.data)
@@ -54,10 +46,15 @@ socket.onmessage = function(e) {
       refresh()
       break
     case "newUser":
-      localStorage.setItem(27875, "{'userId':'" + data.newUserId +"'}")
+      localStorage.setItem(27875, '{"userId":"' + data.newUserId +'"}')
+      break
+    case "connected":
+      if (!localStorage.getItem(27875)) {
+        socket.send(JSON.stringify({"action": "newUser"}))
+      }
       break
     default:
-      alert("something went wrong with your switch")
+      console.log("something went wrong with your switch")
   }
 }
 
@@ -65,9 +62,7 @@ socket.onmessage = function(e) {
 // ************************* YouTube Control *************************
 function onPlayerStateChange(event) {
   if (event.data == 0) {
-    socket.onopen = function() {
-      socket.send(JSON.stringify({"action": "nextSong"}))
-    }
+    socket.send(JSON.stringify({"action": "nextSong"}))
   }
 }
 
@@ -97,13 +92,11 @@ function songHtml(entry) {
 }
 
 function queueSong(newSong, title) {
-  socket.onopen = function() {
-    socket.send(JSON.stringify({
-      "action": "queueSong",
-      "title": title,
-      "yt_url": newSong,
-    }))
-  }
+  socket.send(JSON.stringify({
+    "action": "queueSong",
+    "title": title,
+    "yt_url": newSong,
+  }))
 
   $("#query").val("")
   $("#search-results").empty()
@@ -124,12 +117,11 @@ function refresh() {
 
 // ******************************* Voting *******************************
 function vote(songId, vote) {
-  socket.onopen = function() {
-    socket.send(JSON.stringify({
-        "action": "vote",
-        "userId": localStorage.getItem(27875).userId,
-        "songId": songId,
-        "vote": vote,
-    }))
-  }
+  idPacket = JSON.parse(localStorage.getItem(27875))
+  socket.send(JSON.stringify({
+      "action": "vote",
+      "userId": idPacket.userId,
+      "songId": songId,
+      "vote": vote,
+  }))
 }
