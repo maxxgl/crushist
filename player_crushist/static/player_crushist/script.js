@@ -27,6 +27,10 @@ var ws_p = window.location.protocol == "https:" ? "wss" : "ws"
 var pagename = window.location.host + window.location.pathname
 socket = new WebSocket(ws_p + "://" + pagename)
 
+var upvoted = []
+var downvoted = []
+
+// ************************* Message Handling *************************
 socket.onmessage = function(e) {
   var data = JSON.parse(e.data)
 
@@ -35,7 +39,8 @@ socket.onmessage = function(e) {
       $("#song" + data.songId + "votes").html(data.votes)
       break
     case "voted":
-      $("#song" + data.songId + data.vote).css("color", "red")
+      upvoted = data.upvoted
+      downvoted = data.downvoted
       break
     case "nextSong":
       player.loadVideoById(data.videoId)
@@ -43,15 +48,26 @@ socket.onmessage = function(e) {
     case "refresh":
       refresh()
       break
+    case "newUser":
+      localStorage.setItem(27875, '{"userId":"' + data.newUserId +'"}')
+      vote(1, 0)
+      break
+    case "connected":
+      if (!localStorage.getItem(27875)) {
+        socket.send(JSON.stringify({"action": "newUser"}))
+      } else {
+        vote(1, 0)
+      }
+      break
     default:
-      alert("something went wrong with your switch")
+      console.log("something went wrong with your switch")
   }
 }
 
 
 // ************************* YouTube Control *************************
 function onPlayerStateChange(event) {
-  if (event.data == 0 && socket.readyState == WebSocket.OPEN) {
+  if (event.data == 0) {
     socket.send(JSON.stringify({"action": "nextSong"}))
   }
 }
@@ -82,13 +98,11 @@ function songHtml(entry) {
 }
 
 function queueSong(newSong, title) {
-  if (socket.readyState == WebSocket.OPEN) {
-    socket.send(JSON.stringify({
-      "action": "queueSong",
-      "title": title,
-      "yt_url": newSong,
-    }))
-  }
+  socket.send(JSON.stringify({
+    "action": "queueSong",
+    "title": title,
+    "yt_url": newSong,
+  }))
 
   $("#query").val("")
   $("#search-results").empty()
@@ -96,24 +110,29 @@ function queueSong(newSong, title) {
 
 
 // ***************************** Playlist Loader *****************************
-refresh()
 function refresh() {
   $.get(
       window.location.href + "playlist",
       function(data) {
         $(".playlist").html(data)
+        for (var i = 0; i < upvoted.length; i++) {
+          $("#song" + upvoted[i] + "up").css("color", "blue")
+        }
+        for (var i = 0; i < downvoted.length; i++) {
+          $("#song" + downvoted[i] + "down").css("color", "red")
+        }
       }
   )
 }
 
 
 // ******************************* Voting *******************************
-function vote(id, vote) {
-  if (socket.readyState == WebSocket.OPEN) {
-    socket.send(JSON.stringify({
-        "action": "vote",
-        "songId": id,
-        "vote": vote,
-    }))
-  }
+function vote(songId, vote) {
+  idPacket = JSON.parse(localStorage.getItem(27875))
+  socket.send(JSON.stringify({
+      "action": "vote",
+      "userId": idPacket.userId,
+      "songId": songId,
+      "vote": vote,
+  }))
 }

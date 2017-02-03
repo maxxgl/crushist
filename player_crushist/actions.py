@@ -1,5 +1,10 @@
 from django.shortcuts import get_object_or_404
-from .models import Song, Event
+from .models import Song, User, Event
+
+
+def newUser():
+    user = User.objects.create(user_name="guest")
+    return user.pk
 
 
 def queueSong(newSong, eventId):
@@ -8,20 +13,43 @@ def queueSong(newSong, eventId):
 
     Song.objects.create(title=newSong['title'],
                         thumbnail_url=thumbnail,
-                        yt_url=newSong['yt_url'], votes=1,
+                        yt_url=newSong['yt_url'],
                         event=get_object_or_404(Event, pk=eventId))
 
 
 def vote(data):
+    vote = data['vote']
     song = get_object_or_404(Song, pk=data['songId'])
-    song.votes += int(data['vote'])
-    song.save()
+    user = get_object_or_404(User, pk=data['userId'])
+    upvoted = song.upvoters.filter(id=user.id).exists()
+    downvoted = song.downvoters.filter(id=user.id).exists()
+    if vote is not 0:
+        song.upvoters.remove(user)
+        song.downvoters.remove(user)
+
+    if vote > 0 and not upvoted:
+        song.upvoters.add(user)
+    elif vote < 0 and not downvoted:
+        song.downvoters.add(user)
+
+    uplist = []
+    downlist = []
+    for i in Song.objects.filter(upvoters=user).values_list('id', flat=True):
+        uplist.append(i)
+    for i in Song.objects.filter(downvoters=user).values_list('id', flat=True):
+        downlist.append(i)
+
+    return {
+        "upvoted": uplist,
+        "downvoted": downlist
+    }
 
 
 def nextSong(eventId):
     event = get_object_or_404(Event, pk=eventId)
     songs = event.song_set.all()
-    newSong = songs.latest('votes')
+    # newSong = songs.latest('votes')
+    newSong = songs.latest()
     event.now_playing_id = newSong.yt_url
     event.save()
     event.now_playing_title = newSong.title

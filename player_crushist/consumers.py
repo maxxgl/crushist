@@ -6,14 +6,30 @@ from . import actions
 
 def msg_consumer(message):
     data = json.loads(message['data'])
+    re = Channel(message['reply'], channel_layer=message.channel_layer)
 
-    if data['action'] == 'vote':
-        actions.vote(data)
+    if data['action'] == 'newUser':
+        newUserId = actions.newUser()
+        new_user_msg = json.dumps({
+            "action": "newUser",
+            "newUserId": newUserId,
+        })
+        re.send({"text": new_user_msg})
+
+    elif data['action'] == 'vote':
+        votedList = actions.vote(data)
+        new_votes_msg = json.dumps({
+            "action": "voted",
+            "upvoted": votedList['upvoted'],
+            "downvoted": votedList['downvoted'],
+        })
+        re.send({"text": new_votes_msg})
+
     elif data['action'] == 'queueSong':
         actions.queueSong(data, message['eventId'])
+
     elif data['action'] == 'nextSong':
         newSong = actions.nextSong(message['eventId'])
-        re = Channel(message['reply'], channel_layer=message.channel_layer)
         new_song_msg = json.dumps({
             "action": "nextSong",
             "title": newSong['title'],
@@ -24,16 +40,6 @@ def msg_consumer(message):
     refresh = json.dumps({"action": "refresh"})
     Group("event-%s" % message['eventId']).send({"text": refresh})
 
-    # data = {
-    #     "action": "voted",
-    #     "songId": song.pk,
-    #     "vote": "up" if message['vote'] > 0 else "down",
-    # }
-
-    # reply_channel.send({
-    #     "text": json.dumps(data),
-    # })
-
 
 @channel_session
 def ws_connect(message):
@@ -41,6 +47,8 @@ def ws_connect(message):
     eventId = message.content['path'].strip("/")
     message.channel_session['eventId'] = eventId
     Group("event-%s" % eventId).add(message.reply_channel)
+    connected = json.dumps({"action": "connected"})
+    message.reply_channel.send({"text": connected})
 
 
 @channel_session
