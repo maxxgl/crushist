@@ -22,19 +22,21 @@ function onYouTubePlayerAPIReady() {
 }
 
 
-// ************************* Cookie Handler *************************
-if (!) {
-  if (socket.readyState == WebSocket.OPEN) {
-    socket.send(JSON.stringify({"action": "newUser"}))
-  }
-}
-
-
 // ************************* Socket Constructor *************************
 var ws_p = window.location.protocol == "https:" ? "wss" : "ws"
 var pagename = window.location.host + window.location.pathname
 socket = new WebSocket(ws_p + "://" + pagename)
 
+
+// ************************* Cookie Handler *************************
+if (!localStorage.getItem(27875)) {
+  socket.onopen = function() {
+    socket.send(JSON.stringify({"action": "newUser"}))
+  }
+}
+
+
+// ************************* Message Handling *************************
 socket.onmessage = function(e) {
   var data = JSON.parse(e.data)
 
@@ -62,8 +64,10 @@ socket.onmessage = function(e) {
 
 // ************************* YouTube Control *************************
 function onPlayerStateChange(event) {
-  if (event.data == 0 && socket.readyState == WebSocket.OPEN) {
-    socket.send(JSON.stringify({"action": "nextSong"}))
+  if (event.data == 0) {
+    socket.onopen = function() {
+      socket.send(JSON.stringify({"action": "nextSong"}))
+    }
   }
 }
 
@@ -93,7 +97,7 @@ function songHtml(entry) {
 }
 
 function queueSong(newSong, title) {
-  if (socket.readyState == WebSocket.OPEN) {
+  socket.onopen = function() {
     socket.send(JSON.stringify({
       "action": "queueSong",
       "title": title,
@@ -120,10 +124,10 @@ function refresh() {
 
 // ******************************* Voting *******************************
 function vote(songId, vote) {
-  if (socket.readyState == WebSocket.OPEN) {
+  socket.onopen = function() {
     socket.send(JSON.stringify({
         "action": "vote",
-        "userId": localStorage.getItem(27875),
+        "userId": localStorage.getItem(27875).userId,
         "songId": songId,
         "vote": vote,
     }))

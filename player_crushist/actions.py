@@ -3,7 +3,8 @@ from .models import Song, User, Event
 
 
 def newUser():
-    
+    user = User.objects.create(user_name="guest")
+    return user.pk
 
 
 def queueSong(newSong, eventId):

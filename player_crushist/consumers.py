@@ -10,6 +10,7 @@ def msg_consumer(message):
 
     if data['action'] == 'newUser':
         newUserId = actions.newUser()
+        # print(newUserId + "=======================================")
         new_user_msg = json.dumps({
             "action": "newUser",
             "newUserId": newUserId,
