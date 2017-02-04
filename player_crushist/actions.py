@@ -18,19 +18,21 @@ def queueSong(newSong, eventId):
 
 
 def vote(data):
-    vote = data['vote']
-    song = get_object_or_404(Song, pk=data['songId'])
     user = get_object_or_404(User, pk=data['userId'])
-    upvoted = song.upvoters.filter(id=user.id).exists()
-    downvoted = song.downvoters.filter(id=user.id).exists()
-    if vote is not 0:
+    if data['songId'] is not 0:
+        vote = data['vote']
+        song = get_object_or_404(Song, pk=data['songId'])
+        upvoted = song.upvoters.filter(id=user.id).exists()
+        downvoted = song.downvoters.filter(id=user.id).exists()
         song.upvoters.remove(user)
         song.downvoters.remove(user)
 
-    if vote > 0 and not upvoted:
-        song.upvoters.add(user)
-    elif vote < 0 and not downvoted:
-        song.downvoters.add(user)
+        if vote > 0 and not upvoted:
+            song.upvoters.add(user)
+        elif vote < 0 and not downvoted:
+            song.downvoters.add(user)
+
+        song.updateVotes()
 
     uplist = []
     downlist = []
@@ -48,8 +50,7 @@ def vote(data):
 def nextSong(eventId):
     event = get_object_or_404(Event, pk=eventId)
     songs = event.song_set.all()
-    # newSong = songs.latest('votes')
-    newSong = songs.latest()
+    newSong = songs.latest('votes')
     event.now_playing_id = newSong.yt_url
     event.save()
     event.now_playing_title = newSong.title
