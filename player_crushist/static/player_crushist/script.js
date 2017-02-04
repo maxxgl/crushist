@@ -35,9 +35,6 @@ socket.onmessage = function(e) {
   var data = JSON.parse(e.data)
 
   switch(data.action) {
-    case "newVote":
-      $("#song" + data.songId + "votes").html(data.votes)
-      break
     case "voted":
       upvoted = data.upvoted
       downvoted = data.downvoted
@@ -50,13 +47,13 @@ socket.onmessage = function(e) {
       break
     case "newUser":
       localStorage.setItem(27875, '{"userId":"' + data.newUserId +'"}')
-      vote(1, 0)
+      vote(0, 0)
       break
     case "connected":
       if (!localStorage.getItem(27875)) {
         socket.send(JSON.stringify({"action": "newUser"}))
       } else {
-        vote(1, 0)
+        vote(0, 0)
       }
       break
     default:
@@ -92,7 +89,7 @@ function searchListByKeyword() {
 
 function songHtml(entry) {
   var song = `<div class="songadder"
-    onclick="queueSong('${entry.id.videoId}', '${entry.snippet.title}')">
+    onclick='queueSong("${entry.id.videoId}", "${entry.snippet.title}")'>
     ${entry.snippet.title}<hr></div>`
   return song;
 }
