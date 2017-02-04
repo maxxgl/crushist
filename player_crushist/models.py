@@ -27,9 +27,12 @@ class Song(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     upvoters = models.ManyToManyField(User, related_name="upvoters")
     downvoters = models.ManyToManyField(User, related_name="downvoters")
+    votes = models.IntegerField(default=0)
 
-    def votes(self):
-        return self.upvoters.all().count() - self.downvoters.all().count()
+    def updateVotes(self):
+        self.votes = self.upvoters.all().count() - \
+            self.downvoters.all().count()
+        self.save()
 
     def __str__(self):
         return self.title
