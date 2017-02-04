@@ -35,9 +35,6 @@ socket.onmessage = function(e) {
   var data = JSON.parse(e.data)
 
   switch(data.action) {
-    case "newVote":
-      $("#song" + data.songId + "votes").html(data.votes)
-      break
     case "voted":
       upvoted = data.upvoted
       downvoted = data.downvoted
@@ -92,7 +89,7 @@ function searchListByKeyword() {
 
 function songHtml(entry) {
   var song = `<div class="songadder"
-    onclick="queueSong('${entry.id.videoId}', '${entry.snippet.title}')">
+    onclick="queueSong("${entry.id.videoId}", "${entry.snippet.title}")">
     ${entry.snippet.title}<hr></div>`
   return song;
 }
