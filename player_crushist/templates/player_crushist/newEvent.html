@@ -4,6 +4,22 @@
     <title>Crushist Event</title>
 {% include "player_crushist/partials/header.html" %}
 
+    <div id="welcome">Event Creator</div>
+    <div id="helptext">Start a new playlist event right here.</div>
+    <form class="pure-form pure-form-stacked input" id="creator">
+        <fieldset>
+            <legend>Create Event</legend>
+            <input name="event_name" placeholder="Event Name">
+            <input name="event_code" placeholder="Join Code">
+            <button type="submit" class="pure-button pure-button-primary">
+                Create
+            </button>
+        </fieldset>
+    </form>
+    <hr>
+    <button class="creator-button pure-button" onclick="newEvent()">
+        Create An Event
+    </button>
 
 {% include "player_crushist/partials/footer.html" %}
     <script src="{% static 'player_crushist/script.js' %}"></script>
