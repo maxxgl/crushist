@@ -133,3 +133,8 @@ function vote(songId, vote) {
       "vote": vote,
   }))
 }
+
+// ************************** Create Event Redirect **************************
+function newEvent() {
+  location.pathname = "/createinator"
+}
