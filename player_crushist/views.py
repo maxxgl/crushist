@@ -6,7 +6,7 @@ from .models import Event
 
 def home(request):
     context = {}
-    return render(request, 'player_crushist/master.html', context)
+    return render(request, 'player_crushist/home.html', context)
 
 
 def events(request, event_id):
