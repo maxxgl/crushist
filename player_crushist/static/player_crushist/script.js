@@ -136,5 +136,5 @@ function vote(songId, vote) {
 
 // ************************** Create Event Redirect **************************
 function newEvent() {
-  location.pathname = "/createinator"
+  location.pathname = "/create"
 }

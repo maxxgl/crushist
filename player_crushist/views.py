@@ -25,9 +25,10 @@ def users(request, user_id):
     return HttpResponse("<h1>Yeah we know it works - user: %s" % user_id)
 
 
-def new_event(request):
-    return HttpResponse("<h1>Yeah we know it works - new event")
+def newEvent(request):
+    context = {}
+    return render(request, 'player_crushist/newEvent.html', context)
 
 
-def new_user(request):
+def newUser(request):
     return HttpResponse("<h1>Yeah we know it works - new user")
