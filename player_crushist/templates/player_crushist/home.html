@@ -4,22 +4,20 @@
     <title>Crushist</title>
 {% include "player_crushist/partials/header.html" %}
 
-    <div id="content">
-        <div id="welcome">Welcome</div>
-        <div id="helptext">This is a thing that I'm making</div>
-        <form class="pure-form" id="joiner">
-            <fieldset>
-                <legend>Join Event</legend>
-                <input name="joincode" placeholder="Code">
-                <button type="submit" class="pure-button pure-button-primary">Join</button>
-            </fieldset>
-        </form>
-        <hr>
-        <button class="creator-button pure-button" onclick="newEvent()">
-            Create An Event
-        </button>
-    </div>
+    <div id="welcome">Welcome</div>
+    <div id="helptext">This is a thing that I'm making</div>
+    <form class="pure-form" id="joiner">
+        <fieldset>
+            <legend>Join Event</legend>
+            <input name="joincode" placeholder="Code">
+            <button type="submit" class="pure-button pure-button-primary">Join</button>
+        </fieldset>
+    </form>
+    <hr>
+    <button class="creator-button pure-button" onclick="newEvent()">
+        Create An Event
+    </button>
 
-    {% include "player_crushist/partials/footer.html" %}
+{% include "player_crushist/partials/footer.html" %}
     <script src="{% static 'player_crushist/script.js' %}"></script>
 </body></html>
