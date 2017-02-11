@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^user/(?P<user_id>[0-9]+)/$', views.users, name='users'),
     url(r'^(?P<event_id>[0-9]+)/playlist/$', views.playlist, name='playlist'),
     url(r'^create/$', views.newEvent, name='newEvent'),
-    url(r'^creator/$', views.eventCreator, name='creator')
+    url(r'^/creator/(?P<user_id>[0-9]+)$', views.eventCreator, name='creator')
 ]

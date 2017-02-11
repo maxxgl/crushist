@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 
-from .models import Event
+from .models import Event, User
 
 
 def home(request):
@@ -30,9 +31,12 @@ def newEvent(request):
     return render(request, 'player_crushist/newEvent.html', context)
 
 
-def eventCreator(request):
-    Event.object.create()
-    events(request, event_id)
+def eventCreator(request, user_id):
+    event = Event.objects.create(event_name=request.POST['event_name'],
+                                 user=get_object_or_404(User, pk=user_id),
+                                 event_code=request.POST['event_code'])
+    return HttpResponseRedirect(
+        reverse('player_crushist:events', args=(event.id,)))
 
 
 def newUser(request):
