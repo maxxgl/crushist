@@ -30,5 +30,10 @@ def newEvent(request):
     return render(request, 'player_crushist/newEvent.html', context)
 
 
+def eventCreator(request):
+    Event.object.create()
+    events(request, event_id)
+
+
 def newUser(request):
     return HttpResponse("<h1>Yeah we know it works - new user")

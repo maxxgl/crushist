@@ -6,7 +6,8 @@
 
     <div id="welcome">Event Creator</div>
     <div id="helptext">Start a new playlist event right here.</div>
-    <form class="pure-form pure-form-stacked input" id="creator">
+    <form class="pure-form pure-form-stacked input" id="creator" action="{% url 'player_crushist:creator' %}" method="post">
+        {% csrf_token %}
         <fieldset>
             <legend>Create Event</legend>
             <input name="event_name" placeholder="Event Name">
@@ -16,10 +17,6 @@
             </button>
         </fieldset>
     </form>
-    <hr>
-    <button class="creator-button pure-button" onclick="newEvent()">
-        Create An Event
-    </button>
 
 {% include "player_crushist/partials/footer.html" %}
     <script src="{% static 'player_crushist/script.js' %}"></script>
