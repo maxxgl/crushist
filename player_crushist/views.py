@@ -15,9 +15,10 @@ def events(request, event_id):
     context = {'playlist': playlist}
     try:
         userId = request.COOKIES['userId']
+        if int(userId) == playlist.user.id:
+            return render(request, 'player_crushist/hostEvents.html', context)
     except:
-        return HttpResponse(
-            "Turn on JavaScript or clear localStorage and it'll work")
+        pass
 
     return render(request, 'player_crushist/events.html', context)
 
