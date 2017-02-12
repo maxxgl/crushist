@@ -138,3 +138,5 @@ function vote(songId, vote) {
 function newEvent() {
   location.pathname = "/create"
 }
+
+$("#user_id").val(JSON.parse(localStorage.getItem(27875)).userId)
