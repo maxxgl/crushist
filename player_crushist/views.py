@@ -13,6 +13,13 @@ def home(request):
 def events(request, event_id):
     playlist = get_object_or_404(Event, pk=event_id)
     context = {'playlist': playlist}
+    try:
+        userId = request.COOKIES['userId']
+        if int(userId) == playlist.user.id:
+            return render(request, 'player_crushist/hostEvents.html', context)
+    except:
+        pass
+
     return render(request, 'player_crushist/events.html', context)
 
 
@@ -32,9 +39,15 @@ def newEvent(request):
 
 
 def eventCreator(request):
+    try:
+        userId = request.COOKIES['userId']
+    except:
+        return HttpResponse(
+            "Turn on JavaScript or clear localStorage and it'll work")
+
     event = Event.objects.create(
         event_name=request.POST['event_name'],
-        user=get_object_or_404(User, pk=request.POST['user_id']),
+        user=get_object_or_404(User, pk=userId),
         event_code=request.POST['event_code']
     )
     return HttpResponseRedirect(
