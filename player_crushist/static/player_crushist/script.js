@@ -47,6 +47,7 @@ socket.onmessage = function(e) {
       break
     case "newUser":
       localStorage.setItem(27875, '{"userId":"' + data.newUserId +'"}')
+      document.cookie = "userId=" + data.newUserId;
       vote(0, 0)
       break
     case "connected":
