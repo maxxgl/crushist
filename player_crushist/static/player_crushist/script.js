@@ -41,7 +41,7 @@ socket.onmessage = function(e) {
 
 // ************************* YouTube Control *************************
 function searchListByKeyword() {
-  var q = $("#query").val();
+  var q = $("#query").val()
   $.get( "https://www.googleapis.com/youtube/v3/search",
     {
       key: 'AIzaSyDHZf5lGSWfwmhjcsmVCFgNH41v76uG0ac',
@@ -105,9 +105,12 @@ function vote(songId, vote) {
   }))
 }
 
-// ************************** Create Event Redirect **************************
+
+// ************************** Button Redirect **************************
 function newEvent() {
   location.pathname = "/create"
 }
 
-$("#user_id").val(JSON.parse(localStorage.getItem(27875)).userId)
+function join() {
+  location.pathname = "/" + $("#joincode").val()
+}
