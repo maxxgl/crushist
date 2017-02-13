@@ -10,8 +10,8 @@ def home(request):
     return render(request, 'player_crushist/home.html', context)
 
 
-def events(request, event_id):
-    playlist = get_object_or_404(Event, pk=event_id)
+def events(request, join_code):
+    playlist = get_object_or_404(Event, event_code=join_code)
     context = {'playlist': playlist}
     try:
         userId = request.COOKIES['userId']
