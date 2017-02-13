@@ -51,7 +51,7 @@ def eventCreator(request):
         event_code=request.POST['event_code']
     )
     return HttpResponseRedirect(
-        reverse('player_crushist:events', args=(event.id,)))
+        reverse('player_crushist:events', args=(event.event_code,)))
 
 
 def newUser(request):
