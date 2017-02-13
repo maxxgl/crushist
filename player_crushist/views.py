@@ -10,8 +10,8 @@ def home(request):
     return render(request, 'player_crushist/home.html', context)
 
 
-def events(request, event_id):
-    playlist = get_object_or_404(Event, pk=event_id)
+def events(request, code):
+    playlist = get_object_or_404(Event, event_code=code)
     context = {'playlist': playlist}
     try:
         userId = request.COOKIES['userId']
@@ -23,8 +23,8 @@ def events(request, event_id):
     return render(request, 'player_crushist/events.html', context)
 
 
-def playlist(request, event_id):
-    playlist = get_object_or_404(Event, pk=event_id)
+def playlist(request, code):
+    playlist = get_object_or_404(Event, event_code=code)
     context = {'playlist': playlist}
     return render(request, 'player_crushist/partials/playlist.html', context)
 
@@ -51,7 +51,7 @@ def eventCreator(request):
         event_code=request.POST['event_code']
     )
     return HttpResponseRedirect(
-        reverse('player_crushist:events', args=(event.id,)))
+        reverse('player_crushist:events', args=(event.event_code,)))
 
 
 def newUser(request):

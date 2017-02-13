@@ -6,13 +6,13 @@
 
     <div id="welcome">Welcome</div>
     <div id="helptext">This is a thing that I'm making</div>
-    <form class="pure-form input" id="joiner">
-        <fieldset>
-            <legend>Join Event</legend>
-            <input name="joincode" placeholder="Code">
-            <button type="submit" class="pure-button pure-button-primary">Join</button>
-        </fieldset>
-    </form>
+    <div class="pure-form input" id="joiner">
+        <legend>Join Event</legend>
+        <input id="joincode" placeholder="Code">
+        <button class="pure-button pure-button-primary" onclick="join()">
+            Join
+        </button>
+    </div>
     <hr>
     <button class="creator-button pure-button" onclick="newEvent()">
         Create An Event
