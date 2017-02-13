@@ -47,8 +47,8 @@ def vote(data):
     }
 
 
-def nextSong(eventId):
-    event = get_object_or_404(Event, pk=eventId)
+def nextSong(code):
+    event = get_object_or_404(Event, event_code=code)
     songs = event.song_set.all()
     newSong = songs.latest('votes')
     event.now_playing_id = newSong.yt_url
