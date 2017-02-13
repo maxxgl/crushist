@@ -7,14 +7,14 @@ def newUser():
     return user.pk
 
 
-def queueSong(newSong, eventId):
+def queueSong(newSong, code):
     thumbnail = 'https://i.ytimg.com/vi/' + \
         newSong['yt_url'] + '/default.jpg'
 
     Song.objects.create(title=newSong['title'],
                         thumbnail_url=thumbnail,
                         yt_url=newSong['yt_url'],
-                        event=get_object_or_404(Event, pk=eventId))
+                        event=get_object_or_404(Event, event_code=code))
 
 
 def vote(data):
