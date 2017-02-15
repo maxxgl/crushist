@@ -26,15 +26,20 @@ a {
     padding: 3% 0 2% 0;
 }
 
-.hf {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.headfoot {
     background-color: #326496;
     color:  #FFFFFF;
     height: 5%;
     width: 100%;
     text-align: center;
+}
+
+.cell {
+    margin: auto 0;
+}
+
+.rex {
+    margin: auto 0;
 }
 
 #content {
@@ -83,9 +88,6 @@ a {
     background-repeat: no-repeat;
     text-align: center;
     overflow: hidden;
-}
-
-.pure-g {
     height: 2em;
     line-height: 1em;
 }
