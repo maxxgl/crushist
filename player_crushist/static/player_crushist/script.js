@@ -66,7 +66,7 @@ function searchListByKeyword() {
 function songHtml(entry) {
   var song = `<div class="songadder"
     onclick='queueSong("${entry.id.videoId}", "${entry.snippet.title}")'>
-    ${entry.snippet.title}<hr></div>`
+    ${entry.snippet.title}</div>`
   return song;
 }
 

@@ -47,6 +47,7 @@ a {
 
 #query {
     width: 100%;
+    margin-bottom: 0px;
 }
 
 #welcome {
@@ -66,10 +67,19 @@ a {
 }
 
 #search-results {
+    position: absolute;
     background-color: white;
-    border: 1px solid red;
-    width: 100%;
+    width: 90%;
     background-color: darken(#fff, 5%);
+    border-radius: 3px;
+    z-index: 100;
+}
+
+.songadder {
+    margin: 2px;
+    border: 1px solid grey;
+    border-radius: 3px;
+    padding: 2px;
 }
 
 .songadder:hover {
@@ -77,6 +87,9 @@ a {
     background-color: lightgray;;
 }
 
+.playlist {
+    margin-top: 5px;
+}
 .songimg {
     background-position: center;
     background-size: cover;
