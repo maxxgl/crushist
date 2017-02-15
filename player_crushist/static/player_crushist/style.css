@@ -5,7 +5,7 @@ html, body {
     color: #000000;
     margin: 0;
     padding: 0;
-    font-weight: 400;
+    font-weight: 500;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -20,30 +20,37 @@ a {
 }
 
 #eventtitle {
-    font-size: 2em;
+    text-align: center;
+    font-size: 1.5em;
     font-weight: 500;
-    color:  #326496;
+    color:  white;
     padding: 3% 0 2% 0;
 }
 
-.hf {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #326496;
+.headfoot {
+    background-color: indigo;
     color:  #FFFFFF;
-    height: 5%;
+    height: 2em;
     width: 100%;
     text-align: center;
 }
 
-#content {
-    width: 90%;
-    margin: 0 auto 0 auto;
-    height: 90%;
+.cell {
+    margin: auto 0;
 }
 
-.playlist {
+#footer {
+    position: fixed; bottom: 0px;
+}
+
+#content {
+    width: 90%;
+    margin: 0 auto 3em auto;
+}
+
+#query {
+    width: 100%;
+    margin-bottom: 0px;
 }
 
 #welcome {
@@ -62,13 +69,20 @@ a {
     background: rgb(28, 184, 65);
 }
 
-
 #search-results {
     position: absolute;
-    background-color: white; 
-    border: 1px solid black; 
-    width: calc(80% - 30px);
+    background-color: white;
+    width: 90%;
     background-color: darken(#fff, 5%);
+    border-radius: 3px;
+    z-index: 100;
+}
+
+.songadder {
+    margin: 2px;
+    border: 1px solid grey;
+    border-radius: 3px;
+    padding: 2px;
 }
 
 .songadder:hover {
@@ -76,22 +90,24 @@ a {
     background-color: lightgray;;
 }
 
-.song {
-    color: white;
+.playlist {
+    margin-top: 5px;
+}
+.songimg {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    padding: 1% 1%;
+}
+
+.song {
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.25);
+    color: white;
     text-align: center;
     overflow: hidden;
-}
-
-.pure-g {
-    height: 2em;
-    line-height: 1em;
-}
-
-.songTop {
-    height: 2px;
+    height: 4em;
+    line-height: 1.1em;
 }
 
 .votes {
@@ -101,15 +117,16 @@ a {
 }
 
 .songTitle {
-    background-color: rgba(0, 0, 0, 0.25);
+    font-size: 1.1em;
     margin: auto 0;
+}
+
+.arrows {
+    height: 50%;
+    color:  plum;
+    opacity: .5;
 }
 
 .arrow {
     cursor: pointer;
-}
-
-.arrows {
-    color:  plum;
-    opacity: .5;
 }

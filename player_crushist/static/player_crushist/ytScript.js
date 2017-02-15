@@ -6,9 +6,10 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
 
 var player;
 function onYouTubePlayerAPIReady() {
+    var h = $('#ytplayer').width() * 9 / 16
     player = new YT.Player('ytplayer', {
-      height: '270',
-      width: '480',
+      height: h,
+      width: '100%',
       videoId: '7LnBvuzjpr4',
       playerVars: {
         origin: 'http://crushist.herokuapp.com',
