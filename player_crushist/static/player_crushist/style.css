@@ -20,9 +20,10 @@ a {
 }
 
 #eventtitle {
-    font-size: 2em;
+    text-align: center;
+    font-size: 1.5em;
     font-weight: 500;
-    color:  #326496;
+    color:  white;
     padding: 3% 0 2% 0;
 }
 
@@ -44,7 +45,8 @@ a {
     height: 90%;
 }
 
-.playlist {
+#query {
+    width: 100%;
 }
 
 #welcome {
@@ -63,12 +65,10 @@ a {
     background: rgb(28, 184, 65);
 }
 
-
 #search-results {
-    position: absolute;
-    background-color: white; 
-    border: 1px solid black; 
-    width: calc(80% - 30px);
+    background-color: white;
+    border: 1px solid red;
+    width: 100%;
     background-color: darken(#fff, 5%);
 }
 
@@ -90,8 +90,8 @@ a {
     color: white;
     text-align: center;
     overflow: hidden;
-    height: 3em;
-    line-height: 1em;
+    height: 4em;
+    line-height: 1.1em;
 }
 
 .votes {
@@ -101,6 +101,7 @@ a {
 }
 
 .songTitle {
+    font-size: 1.1em;
     margin: auto 0;
 }
 
@@ -111,6 +112,5 @@ a {
 }
 
 .arrow {
-    margin: 3px 0;
     cursor: pointer;
 }
