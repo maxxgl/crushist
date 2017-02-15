@@ -9,7 +9,7 @@ def newUser():
 
 def queueSong(newSong, code):
     thumbnail = 'https://i.ytimg.com/vi/' + \
-        newSong['yt_url'] + '/mqdefault.jpg'
+        newSong['yt_url'] + '/hqdefault.jpg'
 
     Song.objects.create(title=newSong['title'],
                         thumbnail_url=thumbnail,
