@@ -42,6 +42,10 @@ socket.onmessage = function(e) {
 // ************************* YouTube Control *************************
 function searchListByKeyword() {
   var q = $("#query").val()
+  if (q == "") {
+    $("#search-results").empty()
+    return
+  }
   $.get( "https://www.googleapis.com/youtube/v3/search",
     {
       key: 'AIzaSyDHZf5lGSWfwmhjcsmVCFgNH41v76uG0ac',
@@ -52,6 +56,7 @@ function searchListByKeyword() {
       q: q
     },
     function(data) {
+      $("#search-results").empty()
       for(var i in data.items) {
         $("#search-results").append(songHtml(data.items[i]))
       }

@@ -6,7 +6,7 @@
     {% if playlist %}
         <div id="eventtitle">{{ playlist.event_name }}</div>
         <div class="pure-form">
-            <input id="query" placeholder="Song Search">
+            <input id="query" placeholder="Song Search" onkeyup="searchListByKeyword()">
         </div> 
         <div id="search-results"></div>
         <div class="playlist"></div>
