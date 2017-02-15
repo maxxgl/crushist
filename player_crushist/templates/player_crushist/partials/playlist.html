@@ -1,9 +1,19 @@
 {% for song in playlist.song_set.all|dictsortreversed:"votes" %}
-    <div class="song" id="song{{ song.id }}">
-        {{ song.title }} &nbsp&nbsp:&nbsp&nbsp
-        <i class="fa fa-arrow-up arrows" id="song{{ song.id }}up" onclick="vote({{ song.id }}, 1)"></i>
-        <span id="song{{ song.id }}votes">{{ song.votes }}</span>
-        <i class="fa fa-arrow-down arrows" id="song{{ song.id }}down" onclick="vote({{ song.id }}, -1)"></i>
+    <div class="songTop"></div>
+    <div class="song" id="song{{ song.id }}"  style="background-image: url({{ song.thumbnail_url }})">
+        <div class="pure-g">
+            <div class="pure-u-3-4 songTitle">
+                {{ song.title }}
+            </div>
+
+            <div class="pure-u-1-8 votes"  id="song{{ song.id }}votes">
+                {{ song.votes }}
+            </div>
+
+            <div class="pure-u-1-8">
+                <div class="arrows"><i class="fa fa-arrow-up arrow" id="song{{ song.id }}up" onclick="vote({{ song.id }}, 1)"></i></div>
+                <div class="arrows"><i class="fa fa-arrow-down arrow" id="song{{ song.id }}down" onclick="vote({{ song.id }}, -1)"></i></div>
+            </div>
+        </div>
     </div>
-<hr>
 {% endfor %} 
