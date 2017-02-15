@@ -3,22 +3,15 @@
     <link rel="stylesheet" href="{% static 'player_crushist/style.css' %}" />
     <title>{{ playlist.event_name }}</title>
 {% include "player_crushist/partials/header.html" %}
-
-    <div id="content">{% if playlist %}
-            <div id="eventtitle">{{ playlist.event_name }}</div>
-            <div id="ytplayer"></div>
-    
-            <div id="buttons" style="padding: 3px; margin-top: 10px;">
-                <div class="pure-form">
-                    <input id="query" placeholder="Song Search">
-                    <button class="pure-button pure-button-primary" onclick="searchListByKeyword()">Search</button>
-                </div> 
-            </div>
-            <div id="search-results"></div>
-            <hr>
-            <div class="playlist"></div>
-        {% endif %}
-    </div>
+    {% if playlist %}
+        <div id="eventtitle">{{ playlist.event_name }}</div>
+        <div id="ytplayer"></div>
+        <div class="pure-form">
+            <input id="query" placeholder="Song Search" onkeyup="searchListByKeyword()">
+        </div> 
+        <div id="search-results"></div>
+        <div class="playlist"></div>
+    {% endif %}
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://apis.google.com/js/api.js?onload=googleApiClientReady"></script>
