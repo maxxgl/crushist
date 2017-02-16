@@ -20,7 +20,7 @@ socket.onmessage = function(e) {
       break
     case "oneQueued":
       if (player.getPlayerState() < 1) {
-        player.loadVideoById(data.videoId)
+        socket.send(JSON.stringify({"action": "nextSong"}))        
       }
       break
     case "refresh":
