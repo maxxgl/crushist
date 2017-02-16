@@ -17,7 +17,7 @@ def queueSong(newSong, code):
                         yt_url=newSong['yt_url'],
                         event=event)
 
-    if event.song_set.count() == 1 and newSong['playerState'] < 1:
+    if event.song_set.count() == 1:
         return 1
     return 0
 

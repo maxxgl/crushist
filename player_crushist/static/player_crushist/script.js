@@ -18,6 +18,12 @@ socket.onmessage = function(e) {
     case "nextSong":
       player.loadVideoById(data.videoId)
       break
+    case "oneQueued":
+      console.log("thing")
+      if (player.getPlayerState() < 1) {
+        player.loadVideoById(data.videoId)
+      }
+      break
     case "refresh":
       refresh()
       break
@@ -74,8 +80,7 @@ function queueSong(newSong, title) {
   socket.send(JSON.stringify({
     "action": "queueSong",
     "title": title,
-    "yt_url": newSong,
-    "playerState": player.getPlayerState()
+    "yt_url": newSong
   }))
 
   $("#query").val("")

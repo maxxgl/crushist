@@ -27,11 +27,8 @@ def msg_consumer(message):
 
     elif data['action'] == 'queueSong':
         if actions.queueSong(data, message['eventId']) == 1:
-            Channel("event-messages").send({
-                "eventId": message['eventId'],
-                "data": json.dumps({"action": "nextSong"}),
-                "reply": message['reply']
-            })
+            oneQueued = json.dumps({"action": "oneQueued"})
+            Group("event-%s" % message['eventId']).send({"text": oneQueued})
 
     elif data['action'] == 'nextSong':
         newSong = actions.nextSong(message['eventId'])
