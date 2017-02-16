@@ -19,7 +19,6 @@ socket.onmessage = function(e) {
       player.loadVideoById(data.videoId)
       break
     case "oneQueued":
-      console.log("thing")
       if (player.getPlayerState() < 1) {
         player.loadVideoById(data.videoId)
       }

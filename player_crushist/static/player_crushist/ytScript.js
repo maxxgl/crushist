@@ -16,8 +16,7 @@ function onYouTubePlayerAPIReady() {
         iv_load_policy: '3'
       },
       events: {
-        'onStateChange': onPlayerStateChange,
-        'onError': errorLoad
+        'onStateChange': onPlayerStateChange
       }
     })
 }
@@ -26,8 +25,7 @@ function onPlayerStateChange(event) {
   if (event.data == 0) {
     socket.send(JSON.stringify({"action": "nextSong"}))
   }
-}
-
-function errorLoad(event) {
+  if (event.data == -1 && !player.getVideoData().video_id) {
     socket.send(JSON.stringify({"action": "nextSong"}))
+  }
 }
