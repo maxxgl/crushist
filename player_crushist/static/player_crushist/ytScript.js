@@ -9,14 +9,14 @@ function onYouTubePlayerAPIReady() {
     player = new YT.Player('ytplayer', {
       height: $('#content').width() * 9 / 16,
       width: '100%',
-      videoId: '7LnBvuzjpr4',
+      videoId: '',
       playerVars: {
         origin: 'http://crushist.herokuapp.com',
         autoplay: '0',
         iv_load_policy: '3'
       },
       events: {
-        'onStateChange': onPlayerStateChange
+        'onStateChange': onPlayerStateChange,
       }
     })
 }

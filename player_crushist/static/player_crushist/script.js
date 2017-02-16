@@ -75,6 +75,7 @@ function queueSong(newSong, title) {
     "action": "queueSong",
     "title": title,
     "yt_url": newSong,
+    "playerState": player.getPlayerState()
   }))
 
   $("#query").val("")

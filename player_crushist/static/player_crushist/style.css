@@ -42,7 +42,7 @@ a {
 #content {
     width: 90%;
     max-width: 640px;
-    height: 90%;
+    min-height: 90%;
     margin: 0 auto 0 auto;
 }
 
@@ -90,6 +90,7 @@ a {
 
 .playlist {
     margin-top: 5px;
+    margin-bottom: 10px;
 }
 .songimg {
     background-position: center;
