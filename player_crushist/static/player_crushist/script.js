@@ -28,7 +28,7 @@ socket.onmessage = function(e) {
       refresh()
       break
     case "newUser":
-      document.cookie = "crushistUserId=" + data.newUserId;
+      document.cookie = "crushistUserId=" + data.newUserId + ";path=/"
       vote(0, 0)
       break
     case "connected":
