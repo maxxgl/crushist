@@ -28,12 +28,11 @@ socket.onmessage = function(e) {
       refresh()
       break
     case "newUser":
-      localStorage.setItem(27875, '{"userId":"' + data.newUserId +'"}')
-      document.cookie = "userId=" + data.newUserId;
+      document.cookie = "crushistUserId=" + data.newUserId;
       vote(0, 0)
       break
     case "connected":
-      if (!localStorage.getItem(27875)) {
+      if (!idParse()) {
         socket.send(JSON.stringify({"action": "newUser"}))
       } else {
         vote(0, 0)
@@ -107,10 +106,9 @@ function refresh() {
 
 // ******************************* Voting *******************************
 function vote(songId, vote) {
-  idPacket = JSON.parse(localStorage.getItem(27875))
   socket.send(JSON.stringify({
       "action": "vote",
-      "userId": idPacket.userId,
+      "userId": idParse(),
       "songId": songId,
       "vote": vote,
   }))
@@ -124,4 +122,10 @@ function newEvent() {
 
 function join() {
   location.pathname = "/" + $("#joincode").val()
+}
+
+// ************************** Cookie Handlers **************************
+function idParse() {
+  var b = document.cookie.match('(^|;)\\s*' + "crushistUserId" + '\\s*=\\s*([^;]+)');
+  return b ? b.pop() : '';
 }

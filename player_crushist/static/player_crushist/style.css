@@ -100,7 +100,7 @@ a {
 
 .song {
     border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0.4);
     color: white;
     text-align: center;
     overflow: hidden;
