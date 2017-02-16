@@ -1,8 +1,8 @@
 html, body {
     width: 100%;
     height: 100%;
-    background: #000000;
-    color: #000000;
+    background: white;
+    color: black;
     margin: 0;
     padding: 0;
     font-weight: 500;
@@ -23,7 +23,6 @@ a {
     text-align: center;
     font-size: 1.5em;
     font-weight: 500;
-    color:  white;
     padding: 3% 0 2% 0;
 }
 
@@ -39,13 +38,11 @@ a {
     margin: auto 0;
 }
 
-#footer {
-    position: fixed; bottom: 0px;
-}
-
 #content {
     width: 90%;
-    margin: 0 auto 3em auto;
+    max-width: 640px;
+    min-height: 90%;
+    margin: 0 auto 0 auto;
 }
 
 #query {
@@ -92,6 +89,7 @@ a {
 
 .playlist {
     margin-top: 5px;
+    margin-bottom: 10px;
 }
 .songimg {
     background-position: center;
@@ -102,7 +100,7 @@ a {
 
 .song {
     border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0.4);
     color: white;
     text-align: center;
     overflow: hidden;

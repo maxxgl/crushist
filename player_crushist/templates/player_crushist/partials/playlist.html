@@ -1,6 +1,6 @@
 {% for song in playlist.song_set.all|dictsortreversed:"votes" %}
-    <div class="songimg" style="background-image: url({{ song.thumbnail_url }})">
-        <div class="pure-g song id="song{{ song.id }}">
+    <div class="songimg" style="background-image: url({{ song.thumbnail_url }});">
+        <div class="pure-g song" id="song{{ song.id }}">
             <div class="pure-u-3-4 songTitle">
                 {{ song.title }}
             </div>

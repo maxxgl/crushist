@@ -26,7 +26,9 @@ def msg_consumer(message):
         re.send({"text": new_votes_msg})
 
     elif data['action'] == 'queueSong':
-        actions.queueSong(data, message['eventId'])
+        if actions.queueSong(data, message['eventId']) == 1:
+            oneQueued = json.dumps({"action": "oneQueued"})
+            Group("event-%s" % message['eventId']).send({"text": oneQueued})
 
     elif data['action'] == 'nextSong':
         newSong = actions.nextSong(message['eventId'])

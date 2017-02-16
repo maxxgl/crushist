@@ -6,11 +6,10 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
 
 var player;
 function onYouTubePlayerAPIReady() {
-    var h = $('#ytplayer').width() * 9 / 16
     player = new YT.Player('ytplayer', {
-      height: h,
+      height: $('#content').width() * 9 / 16,
       width: '100%',
-      videoId: '7LnBvuzjpr4',
+      videoId: '',
       playerVars: {
         origin: 'http://crushist.herokuapp.com',
         autoplay: '0',
@@ -24,6 +23,9 @@ function onYouTubePlayerAPIReady() {
 
 function onPlayerStateChange(event) {
   if (event.data == 0) {
+    socket.send(JSON.stringify({"action": "nextSong"}))
+  }
+  if (event.data == -1 && !player.getVideoData().video_id) {
     socket.send(JSON.stringify({"action": "nextSong"}))
   }
 }
