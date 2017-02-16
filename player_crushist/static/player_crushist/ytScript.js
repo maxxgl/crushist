@@ -17,6 +17,7 @@ function onYouTubePlayerAPIReady() {
       },
       events: {
         'onStateChange': onPlayerStateChange,
+        'onError': errorLoad
       }
     })
 }
@@ -25,4 +26,8 @@ function onPlayerStateChange(event) {
   if (event.data == 0) {
     socket.send(JSON.stringify({"action": "nextSong"}))
   }
+}
+
+function errorLoad(event) {
+    socket.send(JSON.stringify({"action": "nextSong"}))
 }
