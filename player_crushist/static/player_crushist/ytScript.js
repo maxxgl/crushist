@@ -6,7 +6,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
 
 var player;
 function onYouTubePlayerAPIReady() {
-    var h = $('#ytplayer').width() * 9 / 16
+    var h = $('#content').width() * 9 / 16
     player = new YT.Player('ytplayer', {
       height: h,
       width: '100%',

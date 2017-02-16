@@ -39,13 +39,11 @@ a {
     margin: auto 0;
 }
 
-#footer {
-    position: fixed; bottom: 0px;
-}
-
 #content {
     width: 90%;
-    margin: 0 auto 3em auto;
+    max-width: 640px;
+    height: 90%;
+    margin: 0 auto 0 auto;
 }
 
 #query {
