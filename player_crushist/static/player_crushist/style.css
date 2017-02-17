@@ -30,6 +30,7 @@ a {
     background-color: indigo;
     color:  #FFFFFF;
     height: 5%;
+    min-height: 2em;
     width: 100%;
     text-align: center;
 }
@@ -92,7 +93,7 @@ a {
 }
 
 .playlist {
-    margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 .songimg {
     background-position: center;
