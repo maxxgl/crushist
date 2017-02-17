@@ -52,7 +52,7 @@ function searchListByKeyword() {
   $.get( "https://www.googleapis.com/youtube/v3/search",
     {
       key: 'AIzaSyDHZf5lGSWfwmhjcsmVCFgNH41v76uG0ac',
-      maxResults: 3,
+      maxResults: 5,
       type: 'video',
       videoEmbeddable: 'true',
       part: 'snippet',
