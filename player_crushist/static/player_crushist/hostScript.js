@@ -6,6 +6,40 @@ socket = new WebSocket(ws_p + "://" + pagename)
 var upvoted = []
 var downvoted = []
 
+
+// ************************* YouTube Player *************************
+var tag = document.createElement('script')
+tag.src = "https://www.youtube.com/player_api"
+var firstScriptTag = document.getElementsByTagName('script')[0]
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+
+var player;
+function onYouTubePlayerAPIReady() {
+    player = new YT.Player('ytplayer', {
+      height: $('#content').width() * 9 / 16,
+      width: '100%',
+      videoId: '',
+      playerVars: {
+        origin: 'http://crushist.herokuapp.com',
+        autoplay: '0',
+        iv_load_policy: '3'
+      },
+      events: {
+        'onStateChange': onPlayerStateChange
+      }
+    })
+}
+
+function onPlayerStateChange(event) {
+  if (event.data == 0) {
+    socket.send(JSON.stringify({"action": "nextSong"}))
+  }
+  if (event.data == -1 && !player.getVideoData().video_id) {
+    socket.send(JSON.stringify({"action": "nextSong"}))
+  }
+}
+
+
 // ************************* Message Handling *************************
 socket.onmessage = function(e) {
   var data = JSON.parse(e.data)
@@ -16,9 +50,12 @@ socket.onmessage = function(e) {
       downvoted = data.downvoted
       break
     case "nextSong":
-      npUpdate(data.videoId, data.title)
+      player.loadVideoById(data.videoId)
       break
     case "oneQueued":
+      if (player.getPlayerState() < 1) {
+        socket.send(JSON.stringify({"action": "nextSong"}))        
+      }
       break
     case "refresh":
       refresh()
@@ -34,7 +71,6 @@ socket.onmessage = function(e) {
       } else {
         vote(0, 0)
       }
-      npUpdate(data.videoId, data.title)
       break
     default:
       console.log("something went wrong with your switch")
@@ -99,12 +135,6 @@ function refresh() {
         }
       }
   )
-}
-
-function npUpdate(code, title) {
-  var img = 'https://i.ytimg.com/vi/' + code + '/hqdefault.jpg'
-  $('#npImg').css("background-image", "url(" + img + ")")
-  $('#npTitle').html(title)
 }
 
 
