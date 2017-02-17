@@ -37,7 +37,7 @@ def msg_consumer(message):
             "title": newSong['title'],
             "videoId": newSong['videoId']
         })
-        re.send({"text": new_song_msg})
+        Group("event-%s" % message['eventId']).send({"text": new_song_msg})
 
     refresh = json.dumps({"action": "refresh"})
     Group("event-%s" % message['eventId']).send({"text": refresh})
@@ -49,8 +49,9 @@ def ws_connect(message):
     eventId = message.content['path'].strip("/")
     message.channel_session['eventId'] = eventId
     Group("event-%s" % eventId).add(message.reply_channel)
-    connected = json.dumps({"action": "connected"})
-    message.reply_channel.send({"text": connected})
+    connected = {"action": "connected"}
+    connected.update(actions.np(eventId))
+    message.reply_channel.send({"text": json.dumps(connected)})
 
 
 @channel_session

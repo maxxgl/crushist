@@ -5,6 +5,17 @@
 {% include "player_crushist/partials/header.html" %}
     {% if playlist %}
         <div id="eventtitle">{{ playlist.event_name }}</div>
+        <div id="nowPlaying">
+        <div class="songimg" id="npImg">
+            <div class="pure-g song" id="npSong">
+                <div class="pure-u-3-4 songTitle" id="npTitle"></div>
+                <div class="pure-u-1-4 songTitle" id="np">
+                    <div class="pure-u-1-1 arrows">Now</div>
+                    <div class="pure-u-1-1 arrows">Playing</div>
+                </div>
+            </div>
+        </div>
+    </div>
         <div class="pure-form">
             <input id="query" placeholder="Song Search" onkeyup="searchListByKeyword()">
         </div>

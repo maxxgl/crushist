@@ -62,3 +62,8 @@ def nextSong(code):
     event.save()
     newSong.delete()
     return {"title": event.now_playing_title, "videoId": event.now_playing_id}
+
+
+def np(code):
+    event = get_object_or_404(Event, event_code=code)
+    return {"title": event.now_playing_title, "videoId": event.now_playing_id}

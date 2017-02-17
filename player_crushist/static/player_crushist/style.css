@@ -47,12 +47,16 @@ a {
 
 #query {
     width: 100%;
-    margin-bottom: 0px;
+    margin: 7px 0px 7px 0px;
 }
 
 #welcome {
     font-size: 2em;
     padding-top: 5%;    
+}
+
+#nowPlaying {
+
 }
 
 .input {
@@ -88,7 +92,6 @@ a {
 }
 
 .playlist {
-    margin-top: 5px;
     margin-bottom: 10px;
 }
 .songimg {
@@ -121,8 +124,7 @@ a {
 
 .arrows {
     height: 50%;
-    color:  plum;
-    opacity: .5;
+    color:  orchid;
 }
 
 .arrow {
