@@ -17,7 +17,7 @@ socket.onmessage = function(e) {
       break
     case "newUser":
       document.cookie = "crushistUserId=" + data.newUserId +
-      "; expires=Fri, 31 Dec 2100 12:00:00 UTC; path=/"
+        "; expires=Fri, 31 Dec 2100 12:00:00 UTC; path=/"
       vote(0, 0)
       break
     case "connected":

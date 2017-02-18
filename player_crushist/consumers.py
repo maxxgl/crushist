@@ -47,10 +47,11 @@ def msg_consumer(message):
 def ws_connect(message):
     message.reply_channel.send({"accept": True})
     eventId = message.content['path'].strip("/")
+    connected = {"action": "connected"}
     message.channel_session['eventId'] = eventId
     Group("event-%s" % eventId).add(message.reply_channel)
-    connected = {"action": "connected"}
-    connected.update(actions.np(eventId))
+    if eventId != "create":
+        connected.update(actions.np(eventId))
     message.reply_channel.send({"text": json.dumps(connected)})
 
 
