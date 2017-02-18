@@ -67,17 +67,17 @@ function searchListByKeyword() {
 }
 
 function songHtml(entry) {
-  var song = `<div class="songadder"
-    onclick='queueSong("${entry.id.videoId}", "${entry.snippet.title}")'>
-    ${entry.snippet.title}</div>`
+  var song = `<div class="songadder" id="${entry.id.videoId}"
+    onclick="queueSong('${entry.id.videoId}')">${entry.snippet.title}</div>`
   return song;
 }
 
-function queueSong(newSong, title) {
+function queueSong(code) {
+  console.log($("#" + code).html())
   socket.send(JSON.stringify({
     "action": "queueSong",
-    "title": title,
-    "yt_url": newSong
+    "title": $("#" + code).html(),
+    "yt_url": code
   }))
 
   $("#query").val("")
