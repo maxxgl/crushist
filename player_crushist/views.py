@@ -43,7 +43,7 @@ def eventCreator(request):
         userId = request.COOKIES['crushistUserId']
     except:
         return HttpResponse(
-            "Turn on JavaScript or clear localStorage and it'll work")
+            "<h2>Make sure JavaScript and cookies are enabled</h2>")
 
     event = Event.objects.create(
         event_name=request.POST['event_name'],
