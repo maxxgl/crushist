@@ -73,7 +73,6 @@ function songHtml(entry) {
 }
 
 function queueSong(code) {
-  console.log($("#" + code).html())
   socket.send(JSON.stringify({
     "action": "queueSong",
     "title": $("#" + code).html(),
