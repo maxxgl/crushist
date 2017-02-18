@@ -1,23 +1,26 @@
 {% load static %}
 {% include "player_crushist/partials/head.html" %}
     <link rel="stylesheet" href="{% static 'player_crushist/style.css' %}" />
-    <title>Crushist</title>
+    <title>crushist</title>
 {% include "player_crushist/partials/header.html" %}
 
-    <div id="welcome">Welcome</div>
-    <div id="helptext">This is a thing that I'm making</div>
-    <div class="pure-form input" id="joiner">
+    <div id="welcome">Hey There,</div>
+    <div id="tagline">This is my Crowd-Sourced JukeBox.</div>
+    <div id="helptext">Share an event's join code with your friends to start making democratic playlists in real-time, and play them right in the event host's browser with YouTube.</div>
+    <div class="pure-form pure-form-aligned input" id="joiner">
         <legend>Join Event</legend>
-        <input id="joincode" placeholder="Code">
-        <button class="pure-button pure-button-primary" onclick="join()">
+        <input class="text" id="joincode" placeholder="Code">
+        <div><button class="pure-button pure-button-primary" onclick="join()">
             Join
+        </button></div>
+    </div>
+    <div class="pure-form input">
+        <legend>Create Event</legend>
+         <button class="creator-button pure-button" onclick="newEvent()">
+            Create An Event
         </button>
     </div>
-    <hr>
-    <button class="creator-button pure-button" onclick="newEvent()">
-        Create An Event
-    </button>
 
 {% include "player_crushist/partials/footer.html" %}
-    <script src="{% static 'player_crushist/script.js' %}"></script>
+    <script src="{% static 'player_crushist/nav.js' %}"></script>
 </body></html>
