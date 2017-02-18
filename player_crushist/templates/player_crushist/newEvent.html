@@ -1,17 +1,17 @@
 {% load static %}
 {% include "player_crushist/partials/head.html" %}
     <link rel="stylesheet" href="{% static 'player_crushist/style.css' %}" />
-    <title>Crushist Event</title>
+    <title>crushist event</title>
 {% include "player_crushist/partials/header.html" %}
 
     <div id="welcome">Event Creator</div>
-    <div id="helptext">Start a new playlist event right here.</div>
-    <form class="pure-form pure-form-stacked input" id="creator" action="{% url 'player_crushist:creator' %}" method="post">
+    <div id="helptext">Start a new event event right here.</div>
+    <form class="pure-form pure-form-aligned input" id="creator" action="{% url 'player_crushist:creator' %}" method="post">
         {% csrf_token %}
         <fieldset>
             <legend>Create Event</legend>
-            <input name="event_name" placeholder="Event Name">
-            <input name="event_code" placeholder="Join Code">
+            <input class="text" name="eventName" placeholder="Event Name" required>
+            <input class="text" name="eventCode" placeholder="Join Code" required>
             <button type="submit" class="pure-button pure-button-primary">
                 Create
             </button>
