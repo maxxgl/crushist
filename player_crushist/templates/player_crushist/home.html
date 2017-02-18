@@ -1,11 +1,12 @@
 {% load static %}
 {% include "player_crushist/partials/head.html" %}
     <link rel="stylesheet" href="{% static 'player_crushist/style.css' %}" />
-    <title>Crushist</title>
+    <title>crushist</title>
 {% include "player_crushist/partials/header.html" %}
 
-    <div id="welcome">Welcome</div>
-    <div id="helptext">This is a thing that I'm making</div>
+    <div id="welcome">Hey There,</div>
+    <div id="tagline">you've found my crowd-sourced JukeBox.</div>
+    <div id="helptext">If you create an event, you can share the join code with your friends to start making democratic playlists in real-time, and play them right in the event host's browser.</div>
     <div class="pure-form input" id="joiner">
         <legend>Join Event</legend>
         <input id="joincode" placeholder="Code">
@@ -13,10 +14,12 @@
             Join
         </button>
     </div>
-    <hr>
-    <button class="creator-button pure-button" onclick="newEvent()">
-        Create An Event
-    </button>
+    <div class="pure-form input">
+        <legend>Create Event</legend>
+         <button class="creator-button pure-button" onclick="newEvent()">
+            Create An Event
+        </button>
+    </div>
 
 {% include "player_crushist/partials/footer.html" %}
     <script src="{% static 'player_crushist/script.js' %}"></script>

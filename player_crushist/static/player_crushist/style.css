@@ -44,6 +44,7 @@ a {
     max-width: 640px;
     min-height: 90%;
     margin: 0 auto 0 auto;
+    text-align: center;
 }
 
 #query {
@@ -52,21 +53,30 @@ a {
 }
 
 #welcome {
-    font-size: 2em;
-    padding-top: 5%;    
+    font-size: 1.65em;
+    padding-top: 1em;    
 }
 
-#nowPlaying {
+#tagline {
+    font-size: 1.15em;
+}
 
+#helptext {
+    font-weight: 400;
+    color: slategrey;
 }
 
 .input {
     padding-top: 10%;
 }
 
+#joincode {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .creator-button {
     color: white;
-    margin-top: 5%;
     border-radius: 4px;
     background: rgb(28, 184, 65);
 }
