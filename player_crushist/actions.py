@@ -9,11 +9,7 @@ def newUser():
 
 def queueSong(newSong, code):
     event = get_object_or_404(Event, event_code=code)
-    thumbnail = 'https://i.ytimg.com/vi/' + \
-        newSong['yt_url'] + '/hqdefault.jpg'
-
     Song.objects.create(title=newSong['title'],
-                        thumbnail_url=thumbnail,
                         yt_url=newSong['yt_url'],
                         event=event)
 
