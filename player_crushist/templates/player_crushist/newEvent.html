@@ -6,12 +6,13 @@
 
     <div id="welcome">Event Creator</div>
     <div id="helptext">Start a new event event right here.</div>
-    <form class="pure-form pure-form-aligned input" id="creator" action="{% url 'player_crushist:creator' %}" method="post">
+    <form class="pure-form input" id="creator" action="{% url 'player_crushist:creator' %}" method="post">
         {% csrf_token %}
         <fieldset>
             <legend>Create Event</legend>
             <input class="text" name="event_name" placeholder="Event Name" required>
-            <input class="text" name="event_code" placeholder="Join Code" required>
+            <div><input class="text" name="event_code" placeholder="Join Code" required></div>
+            <textarea class="text" rows="4" name="event_description" placeholder="Event Description"></textarea>
             <div><button type="submit" class="pure-button pure-button-primary">
                 Create
             </button></div>

@@ -15,7 +15,7 @@ def events(request, code):
     context = {'playlist': playlist}
     try:
         userId = request.COOKIES['crushistUserId']
-        if int(userId) == playlist.user.id:
+        if userId == playlist.user.id:
             return render(request, 'player_crushist/hostEvents.html', context)
     except:
         pass
@@ -47,6 +47,7 @@ def eventCreator(request):
 
     event = Event.objects.create(
         event_name=request.POST['event_name'],
+        event_description=request.POST['event_description'],
         user=get_object_or_404(User, pk=userId),
         event_code=request.POST['event_code']
     )
