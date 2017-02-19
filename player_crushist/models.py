@@ -29,7 +29,7 @@ class Song(models.Model):
     title = models.CharField(max_length=120)
     yt_url = models.CharField(max_length=15)
     channel = models.CharField(max_length=25)
-    duration = models.CharField(max_length=10)
+    # duration = models.CharField(max_length=10)
     added = models.DateTimeField(auto_now_add=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     upvoters = models.ManyToManyField(User, related_name="upvoters")
