@@ -19,7 +19,7 @@ class Event(models.Model):
     now_playing_id = models.CharField(max_length=15, default="")
     now_playing_title = models.CharField(max_length=250, default="")
     now_playing_channel = models.CharField(max_length=250, default="")
-    now_playing_duration = models.CharField(max_length=250, default="")
+    # now_playing_duration = models.CharField(max_length=250, default="")
 
     def __str__(self):
         return self.event_name

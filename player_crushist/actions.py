@@ -12,7 +12,6 @@ def queueSong(newSong, code):
     Song.objects.create(title=newSong['title'],
                         yt_url=newSong['yt_url'],
                         channel=newSong['channel'],
-                        duration=newSong['duration'],
                         event=event)
 
     if event.song_set.count() == 1:
@@ -60,15 +59,12 @@ def nextSong(code):
     event.save()
     event.now_playing_channel = newSong.channel
     event.save()
-    event.now_playing_duration = newSong.duration
-    event.save()
     newSong.delete()
 
     return {
         "videoId": event.now_playing_id,
         "title": event.now_playing_title,
-        "channel": event.now_playing_id,
-        "duration": event.now_playing_duration
+        "channel": event.now_playing_id
     }
 
 
@@ -77,6 +73,5 @@ def np(code):
     return {
         "videoId": event.now_playing_id,
         "title": event.now_playing_title,
-        "channel": event.now_playing_id,
-        "duration": event.now_playing_duration
+        "channel": event.now_playing_id
     }
