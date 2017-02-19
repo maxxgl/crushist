@@ -1,8 +1,11 @@
 {% for song in playlist.song_set.all|dictsortreversed:"votes" %}
     <div class="songimg" style="background-image: url(https://i.ytimg.com/vi/{{ song.yt_url }}/hqdefault.jpg);">
         <div class="pure-g song" id="song{{ song.id }}">
-            <div class="pure-u-3-4 songTitle">
-                {{ song.title }}
+            <div class="pure-u-3-4">
+                <div class="pure-u-1-1 songTitle">{{ song.title }}</div>
+                <div class="pure-u-1-3 songInfo">channel</div>
+                <div class="pure-u-1-4 songInfo"></div>
+                <div class="pure-u-1-3 songInfo">duration</div>
             </div>
     
             <div class="pure-u-1-8">

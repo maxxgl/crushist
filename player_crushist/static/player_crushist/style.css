@@ -120,18 +120,18 @@ a {
     color: white;
     text-align: center;
     overflow: hidden;
-    height: 4em;
-    line-height: 1.1em;
+    height: 5em;
 }
 
 .votes {
     font-size: 2em;
-    margin: auto 0 auto 0;
+    margin: auto 0;
 }
 
 .songTitle {
-    font-size: 1.1em;
     margin: auto 0;
+    height: 3em;
+    font-size: 1.1em;
 }
 
 .arrows {
