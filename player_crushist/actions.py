@@ -1,9 +1,10 @@
 from django.shortcuts import get_object_or_404
 from .models import Song, User, Event
+import uuid
 
 
 def newUser():
-    user = User.objects.create(user_name="guest")
+    user = User.objects.create(id=uuid.uuid4().hex, user_name="guest")
     return user.pk
 
 
