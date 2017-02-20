@@ -3,8 +3,8 @@ from django.db import models
 
 
 class User(models.Model):
-    id = models.CharField(primary_key=True, unique=True, max_length=40,
-                          default=uuid.uuid4(), editable=False)
+    id = models.UUIDField(
+        primary_key=True, unique=True, default=uuid.uuid4(), editable=False)
     user_name = models.CharField(max_length=20)
 
     def __str__(self):
