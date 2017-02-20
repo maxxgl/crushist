@@ -20,10 +20,8 @@ a {
 }
 
 #eventtitle {
-    text-align: center;
     font-size: 1.5em;
-    font-weight: 500;
-    padding: 3% 0 2% 0;
+    padding-top: .5em;
 }
 
 .headfoot {
@@ -54,7 +52,7 @@ a {
 
 #welcome {
     font-size: 1.65em;
-    padding-top: 1em;    
+    padding-top: 1em;
 }
 
 #tagline {
@@ -64,6 +62,7 @@ a {
 #helptext {
     font-weight: 400;
     color: slategrey;
+    padding-bottom: .5em;
 }
 
 .input {
