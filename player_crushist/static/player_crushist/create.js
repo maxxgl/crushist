@@ -4,7 +4,7 @@ socket.onmessage = function(e) {
 
   switch(data.action) {
     case "newUser":
-      document.cookie = "crushistUserId=" + data.newUserId +
+      document.cookie = "crushistUUID=" + data.newUserId +
         "; expires=Fri, 31 Dec 2100 12:00:00 UTC; path=/"
       vote(0, 0)
       break
