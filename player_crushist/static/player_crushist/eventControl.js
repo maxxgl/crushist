@@ -1,6 +1,16 @@
 var upvoted = []
 var downvoted = []
 
+// ***************************** Helper Display *****************************
+if (!localStorage.getItem(278)) {
+  $("#helper").fadeIn("slow")
+  $("#helperButton").click(function() {
+    $("#helper").fadeOut("slow")
+    localStorage.setItem(278, "True")
+  })
+}
+
+
 // ***************************** Playlist Loader *****************************
 function refresh() {
   $.get(
@@ -8,10 +18,10 @@ function refresh() {
       function(data) {
         $(".playlist").html(data)
         for (var i = 0; i < upvoted.length; i++) {
-          $("#song" + upvoted[i] + "votes").css("color", "blue")
+          $("#song" + upvoted[i] + "votes").css("color", "red")
         }
         for (var i = 0; i < downvoted.length; i++) {
-          $("#song" + downvoted[i] + "votes").css("color", "red")
+          $("#song" + downvoted[i] + "votes").css("color", "blue")
         }
       }
   )
@@ -55,9 +65,11 @@ function searchListByKeyword() {
 
 function songHtml(entry) {
   var song = `<div class="songadder" onclick="queueSong('${entry.id.videoId}')">
-      <div id="${entry.id.videoId}Title">${entry.snippet.title}</div>
+      <div id="${entry.id.videoId}Title" style="font-weight: bold;">${entry.snippet.title}</div>
       <div id="${entry.id.videoId}Channel">${entry.snippet.channelTitle}</div>
     </div>`
+  // var song = `<div class="songadder" id="${entry.id.videoId}"
+    // onclick="queueSong('${entry.id.videoId}')">${entry.snippet.title}</div>`
   return song;
 }
 

@@ -10,6 +10,7 @@
         {% csrf_token %}
         <fieldset>
             <legend>Create Event</legend>
+            <div class="error">{{ error }}</div>
             <input class="text" name="event_name" placeholder="Event Name" required>
             <div><input class="text" name="event_code" placeholder="Join Code" required></div>
             <textarea class="text" rows="4" name="event_description" placeholder="Event Description"></textarea>

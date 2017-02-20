@@ -45,12 +45,17 @@ def eventCreator(request):
         return HttpResponse(
             "<h2>Make sure JavaScript and cookies are enabled</h2>")
 
-    event = Event.objects.create(
-        event_name=request.POST['event_name'],
-        event_description=request.POST['event_description'],
-        user=get_object_or_404(User, pk=userId),
-        event_code=request.POST['event_code']
-    )
+    try:
+        event = Event.objects.create(
+            event_name=request.POST['event_name'],
+            event_description=request.POST['event_description'],
+            user=get_object_or_404(User, pk=userId),
+            event_code=request.POST['event_code']
+        )
+    except:
+        context = {"error": "That event code already exists."}
+        return render(request, 'player_crushist/newEvent.html', context)
+
     return HttpResponseRedirect(
         reverse('player_crushist:events', args=(event.event_code,)))
 
