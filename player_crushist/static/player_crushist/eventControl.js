@@ -8,10 +8,10 @@ function refresh() {
       function(data) {
         $(".playlist").html(data)
         for (var i = 0; i < upvoted.length; i++) {
-          $("#song" + upvoted[i] + "votes").css("color", "blue")
+          $("#song" + upvoted[i] + "votes").css("color", "red")
         }
         for (var i = 0; i < downvoted.length; i++) {
-          $("#song" + downvoted[i] + "votes").css("color", "red")
+          $("#song" + downvoted[i] + "votes").css("color", "blue")
         }
       }
   )
