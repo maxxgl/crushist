@@ -8,12 +8,9 @@
         <div id="helptext">{{ playlist.event_description }}</div>
         <div id="nowPlaying">
         <div class="songimg" id="npImg">
-            <div class="pure-g song" id="npSong">
-                <div class="pure-u-3-4 songTitle" id="npTitle"></div>
-                <div class="pure-u-1-4 songTitle" id="np">
-                    <div class="pure-u-1-1 arrows">Now</div>
-                    <div class="pure-u-1-1 arrows">Playing</div>
-                </div>
+            <div class="song" id="song{{ song.id }}">
+                <div class="songTitle">{{ playlist.now_playing_title }}</div>
+                <div class="songChannel">LissieVevo</div>
             </div>
         </div>
     </div>
