@@ -4,9 +4,8 @@
         <div class="downVote arrow" onclick="vote({{ song.id }}, -1)"></div>
         <div class="song" id="song{{ song.id }}">
             <div class="songTitle">{{ song.title }}</div>
-            <div class="songChannel">LissieVevo</div>
+            <div class="songChannel">{{ song.channel }}</div>
         </div>
-
         <div class="votes" id="song{{ song.id }}votes">{{ song.votes }}</div>
     </div>
 {% endfor %}

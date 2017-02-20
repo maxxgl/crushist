@@ -32,3 +32,10 @@ socket.onmessage = function(e) {
       console.log("something went wrong with your switch")
   }
 }
+
+
+function npUpdate(code, title) {
+  var img = 'https://i.ytimg.com/vi/' + code + '/hqdefault.jpg'
+  $('#npImg').css("background-image", "url(" + img + ")")
+  $('#npTitle').html(title)
+}

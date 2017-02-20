@@ -8,19 +8,13 @@ function refresh() {
       function(data) {
         $(".playlist").html(data)
         for (var i = 0; i < upvoted.length; i++) {
-          $("#song" + upvoted[i] + "up").css("color", "blue")
+          $("#song" + upvoted[i] + "votes").css("color", "blue")
         }
         for (var i = 0; i < downvoted.length; i++) {
-          $("#song" + downvoted[i] + "down").css("color", "red")
+          $("#song" + downvoted[i] + "votes").css("color", "red")
         }
       }
   )
-}
-
-function npUpdate(code, title) {
-  var img = 'https://i.ytimg.com/vi/' + code + '/hqdefault.jpg'
-  $('#npImg').css("background-image", "url(" + img + ")")
-  $('#npTitle').html(title)
 }
 
 
