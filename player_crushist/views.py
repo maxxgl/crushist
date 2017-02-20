@@ -14,8 +14,8 @@ def events(request, code):
     playlist = get_object_or_404(Event, event_code=code)
     context = {'playlist': playlist}
     try:
-        userId = request.COOKIES['crushistUserId']
-        if int(userId) == playlist.user.id:
+        userId = request.COOKIES['crushistUUID']
+        if userId == playlist.user.id:
             return render(request, 'player_crushist/hostEvents.html', context)
     except:
         pass
@@ -40,13 +40,14 @@ def newEvent(request):
 
 def eventCreator(request):
     try:
-        userId = request.COOKIES['crushistUserId']
+        userId = request.COOKIES['crushistUUID']
     except:
         return HttpResponse(
             "<h2>Make sure JavaScript and cookies are enabled</h2>")
 
     event = Event.objects.create(
         event_name=request.POST['event_name'],
+        event_description=request.POST['event_description'],
         user=get_object_or_404(User, pk=userId),
         event_code=request.POST['event_code']
     )

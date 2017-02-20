@@ -16,7 +16,7 @@ socket.onmessage = function(e) {
       refresh()
       break
     case "newUser":
-      document.cookie = "crushistUserId=" + data.newUserId +
+      document.cookie = "crushistUUID=" + data.newUserId +
         "; expires=Fri, 31 Dec 2100 12:00:00 UTC; path=/"
       vote(0, 0)
       break
@@ -31,4 +31,11 @@ socket.onmessage = function(e) {
     default:
       console.log("something went wrong with your switch")
   }
+}
+
+
+function npUpdate(code, title) {
+  var img = 'https://i.ytimg.com/vi/' + code + '/hqdefault.jpg'
+  $('#npImg').css("background-image", "url(" + img + ")")
+  $('#npTitle').html(title)
 }

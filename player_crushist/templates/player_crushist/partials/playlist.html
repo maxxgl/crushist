@@ -1,22 +1,11 @@
 {% for song in playlist.song_set.all|dictsortreversed:"votes" %}
-    <div class="songimg" style="background-image: url({{ song.thumbnail_url }});">
-        <div class="pure-g song" id="song{{ song.id }}">
-            <div class="pure-u-3-4 songTitle">
-                {{ song.title }}
-            </div>
-    
-            <div class="pure-u-1-8">
-                <div class="pure-u-1-1 arrows">
-                    <i class="fa fa-arrow-up fa-2x arrow" id="song{{ song.id }}up" onclick="vote({{ song.id }}, 1)"></i>
-                </div>
-                <div class="pure-u-1-1 arrows">
-                    <i class="fa fa-arrow-down fa-2x arrow" id="song{{ song.id }}down" onclick="vote({{ song.id }}, -1)"></i>
-                </div>
-            </div>
-            
-            <div class="pure-u-1-8 votes"  id="song{{ song.id }}votes">
-                {{ song.votes }}
-            </div>
+    <div class="songimg" style="background-image: url(https://i.ytimg.com/vi/{{ song.yt_url }}/hqdefault.jpg);">
+        <div class="upVote arrow" onclick="vote({{ song.id }}, 1)"></div>
+        <div class="downVote arrow" onclick="vote({{ song.id }}, -1)"></div>
+        <div class="song" id="song{{ song.id }}">
+            <div class="songTitle">{{ song.title }}</div>
+            <div class="songChannel">{{ song.channel }}</div>
         </div>
+        <div class="votes" id="song{{ song.id }}votes">{{ song.votes }}</div>
     </div>
-{% endfor %} 
+{% endfor %}

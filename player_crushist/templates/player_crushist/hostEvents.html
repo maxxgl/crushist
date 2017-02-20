@@ -5,6 +5,7 @@
 {% include "player_crushist/partials/header.html" %}
     {% if playlist %}
         <div id="eventtitle">{{ playlist.event_name }}</div>
+        <div id="helptext">{{ playlist.event_description }}</div>
         <div id="ytplayer"></div>
         <div class="pure-form">
             <input id="query" placeholder="Song Search" onkeyup="searchListByKeyword()">

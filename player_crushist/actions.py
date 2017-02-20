@@ -9,12 +9,9 @@ def newUser():
 
 def queueSong(newSong, code):
     event = get_object_or_404(Event, event_code=code)
-    thumbnail = 'https://i.ytimg.com/vi/' + \
-        newSong['yt_url'] + '/hqdefault.jpg'
-
     Song.objects.create(title=newSong['title'],
-                        thumbnail_url=thumbnail,
                         yt_url=newSong['yt_url'],
+                        channel=newSong['channel'],
                         event=event)
 
     if event.song_set.count() == 1:
@@ -60,10 +57,21 @@ def nextSong(code):
     event.save()
     event.now_playing_title = newSong.title
     event.save()
+    event.now_playing_channel = newSong.channel
+    event.save()
     newSong.delete()
-    return {"title": event.now_playing_title, "videoId": event.now_playing_id}
+
+    return {
+        "videoId": event.now_playing_id,
+        "title": event.now_playing_title,
+        "channel": event.now_playing_channel
+    }
 
 
 def np(code):
     event = get_object_or_404(Event, event_code=code)
-    return {"title": event.now_playing_title, "videoId": event.now_playing_id}
+    return {
+        "videoId": event.now_playing_id,
+        "title": event.now_playing_title,
+        "channel": event.now_playing_channel
+    }

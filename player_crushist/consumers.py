@@ -9,21 +9,16 @@ def msg_consumer(message):
     re = Channel(message['reply'], channel_layer=message.channel_layer)
 
     if data['action'] == 'newUser':
-        newUserId = actions.newUser()
         new_user_msg = json.dumps({
             "action": "newUser",
-            "newUserId": newUserId,
+            "newUserId": actions.newUser(),
         })
         re.send({"text": new_user_msg})
 
     elif data['action'] == 'vote':
-        votedList = actions.vote(data)
-        new_votes_msg = json.dumps({
-            "action": "voted",
-            "upvoted": votedList['upvoted'],
-            "downvoted": votedList['downvoted'],
-        })
-        re.send({"text": new_votes_msg})
+        msg = {"action": "voted"}
+        msg.update(actions.vote(data))
+        re.send({"text": json.dups(msg)})
 
     elif data['action'] == 'queueSong':
         if actions.queueSong(data, message['eventId']) == 1:
@@ -31,13 +26,9 @@ def msg_consumer(message):
             Group("event-%s" % message['eventId']).send({"text": oneQueued})
 
     elif data['action'] == 'nextSong':
-        newSong = actions.nextSong(message['eventId'])
-        new_song_msg = json.dumps({
-            "action": "nextSong",
-            "title": newSong['title'],
-            "videoId": newSong['videoId']
-        })
-        Group("event-%s" % message['eventId']).send({"text": new_song_msg})
+        msg = {"action": "nextSong"}
+        msg.update(actions.nextSong(message['eventId']))
+        Group("event-%s" % message['eventId']).send({"text": json.dumps(msg)})
 
     refresh = json.dumps({"action": "refresh"})
     Group("event-%s" % message['eventId']).send({"text": refresh})

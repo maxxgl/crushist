@@ -101,44 +101,65 @@ a {
 
 .songadder:hover {
     cursor: pointer;
-    background-color: lightgray;;
+    background-color: lightgray;
 }
 
 .playlist {
     padding-bottom: 10px;
 }
+
 .songimg {
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    padding: 1% 3%;
-}
-
-.song {
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.4);
     color: white;
-    text-align: center;
-    overflow: hidden;
-    height: 4em;
-    line-height: 1.1em;
+    position: relative;
 }
 
 .votes {
-    font-size: 2em;
-    margin: auto 0 auto 0;
+    font-size: 7em;
+    font-weight: bold;
+    color: violet;
+    line-height: 1.25;
 }
 
-.songTitle {
-    font-size: 1.1em;
-    margin: auto 0;
-}
-
-.arrows {
-    height: 50%;
-    color:  orchid;
+.song {
+    position: absolute;
+    left: 3%;
+    top: .75em;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 7.25em;
+    width: 94%;
 }
 
 .arrow {
     cursor: pointer;
+    position: absolute;
+    z-index: 50;
+    left: 3%;
+    height: 3.625em;
+    width: 94%;
+}
+
+.upVote {
+    top: .75em;
+}
+
+.downVote {
+    top: 4.375em;
+}
+
+.songTitle {
+    padding: 0.25em 0.25em 0 0.25em;
+    margin-bottom: 0.25em;
+    font-weight: bold;
+    font-size: 1.5em;
+    height: 3em;
+    overflow: hidden;
+    line-height: 1;
+}
+
+.songChannel {
+    padding: 0.25em;
 }

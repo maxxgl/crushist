@@ -5,7 +5,7 @@ socket = new WebSocket(ws_p + "://" + pagename)
 
 // ************************** Cookie Handlers **************************
 function idParse() {
-  var b = document.cookie.match('(^|;)\\s*' + "crushistUserId" + '\\s*=\\s*([^;]+)');
+  var b = document.cookie.match('(^|;)\\s*' + "crushistUUID" + '\\s*=\\s*([^;]+)');
   return b ? b.pop() : '';
 }
 
