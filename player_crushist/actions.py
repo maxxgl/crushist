@@ -64,7 +64,7 @@ def nextSong(code):
     return {
         "videoId": event.now_playing_id,
         "title": event.now_playing_title,
-        "channel": event.now_playing_id
+        "channel": event.now_playing_channel
     }
 
 
@@ -73,5 +73,5 @@ def np(code):
     return {
         "videoId": event.now_playing_id,
         "title": event.now_playing_title,
-        "channel": event.now_playing_id
+        "channel": event.now_playing_channel
     }
