@@ -5,7 +5,6 @@ html, body {
     color: black;
     margin: 0;
     padding: 0;
-    font-weight: 500;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -43,6 +42,21 @@ a {
     min-height: 90%;
     margin: 0 auto;
     text-align: center;
+    position: relative;
+}
+
+#helper {
+    display: none;
+    position: absolute;
+    z-index: 80;
+    top: 6em;
+    left: 10%;
+    width: 75%;
+    max-width: 640px;
+    padding: 2.5%;
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0 0 20px 15px rgba(0, 0, 0, .8);
 }
 
 #query {

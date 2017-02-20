@@ -1,6 +1,16 @@
 var upvoted = []
 var downvoted = []
 
+// ***************************** Helper Display *****************************
+if (!localStorage.getItem(278)) {
+  $("#helper").fadeIn("slow")
+  $("#helperButton").click(function() {
+    $("#helper").fadeOut("slow")
+    localStorage.setItem(278, "True")
+  })
+}
+
+
 // ***************************** Playlist Loader *****************************
 function refresh() {
   $.get(
