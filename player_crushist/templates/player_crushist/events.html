@@ -9,8 +9,12 @@
         <div id="nowPlaying">
         <div class="songimg" id="npImg">
             <div class="song" id="song{{ song.id }}">
-                <div class="songTitle">{{ playlist.now_playing_title }}</div>
-                <div class="songChannel">{{ playlist.now_playing_channel }}</div>
+                <div id="npTitle" class="songTitle">
+                    {{ playlist.now_playing_title }}
+                </div>
+                <div id="npChannel" class="songChannel">
+                    {{ playlist.now_playing_channel }}
+                </div>
             </div>
             <div class="votes">NP</div>
         </div>
