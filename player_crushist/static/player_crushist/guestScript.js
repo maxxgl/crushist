@@ -8,7 +8,7 @@ socket.onmessage = function(e) {
       downvoted = data.downvoted
       break
     case "nextSong":
-      npUpdate(data.videoId, data.title)
+      npUpdate(data.videoId, data.title, data.channel)
       break
     case "oneQueued":
       break
@@ -26,7 +26,7 @@ socket.onmessage = function(e) {
       } else {
         vote(0, 0)
       }
-      npUpdate(data.videoId, data.title)
+      npUpdate(data.videoId, data.title, data.channel)
       break
     default:
       console.log("something went wrong with your switch")
@@ -34,8 +34,9 @@ socket.onmessage = function(e) {
 }
 
 
-function npUpdate(code, title) {
+function npUpdate(code, title, channel) {
   var img = 'https://i.ytimg.com/vi/' + code + '/hqdefault.jpg'
   $('#npImg').css("background-image", "url(" + img + ")")
   $('#npTitle').html(title)
+  $('#npChannel').html(channel)
 }
